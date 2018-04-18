@@ -44,7 +44,7 @@ module mriscvcore_top_s2qed(clk, rstn);
   // declare two instances 
   mriscvcore mriscvcore_inst0 (
   	.clk    (clk            ),
-  	.rstn   (resetn         ),
+  	.rstn   (rstn         ),
   	.trap   (trap           ),
   	.AWvalid(mem_axi_awvalid0),
   	.AWready(mem_axi_awready0),
@@ -69,7 +69,7 @@ module mriscvcore_top_s2qed(clk, rstn);
 
   mriscvcore mriscvcore_inst1 (
   	.clk    (clk            ),
-  	.rstn   (resetn         ),
+  	.rstn   (rstn         ),
   	.trap   (trap           ),
   	.AWvalid(mem_axi_awvalid1),
   	.AWready(mem_axi_awready1),
@@ -92,7 +92,4 @@ module mriscvcore_top_s2qed(clk, rstn);
   	.inirr  (irq1            )
   );
 
-  // create QED module to send duplicate instructions
-  //
-  //
 endmodule

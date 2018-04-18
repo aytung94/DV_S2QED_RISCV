@@ -1,6 +1,6 @@
 # do run.do
 # Model Technology ModelSim SE-64 vlog 10.6 Compiler 2016.12 Dec 13 2016
-# Start time: 20:44:10 on Apr 17,2018
+# Start time: 21:16:29 on Apr 17,2018
 # vlog mriscvcore_top_s2qed.v mriscvcore.v MEMORY_INTERFACE/MEMORY_INTERFACE.v DECO_INSTR/DECO_INSTR.v REG_FILE/REG_FILE.v ALU/ALU.v IRQ/IRQ.v MULT/MULT.v UTILITIES/UTILITY.v FSM/FSM.v 
 # -- Compiling module mriscvcore_top_s2qed
 # -- Compiling module mriscvcore
@@ -30,10 +30,10 @@
 # 
 # Top level modules:
 # 	mriscvcore_top_s2qed
-# End time: 20:44:10 on Apr 17,2018, Elapsed time: 0:00:00
+# End time: 21:16:29 on Apr 17,2018, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 1
 # vsim -c mriscvcore_top_s2qed 
-# Start time: 20:44:10 on Apr 17,2018
+# Start time: 21:16:29 on Apr 17,2018
 # ** Note: (vsim-3812) Design is being optimized...
 # ** Warning: mriscvcore_top_s2qed.v(45): (vopt-2685) [TFMPC] - Too few port connections for 'mriscvcore_inst0'.  Expected 22, found 21.
 # ** Warning: mriscvcore_top_s2qed.v(45): (vopt-2718) [TFMPC] - Missing connection for port 'outirr'.
@@ -55,5 +55,5 @@
 # //
 # Loading work.mriscvcore_top_s2qed(fast)
 # Loading work.mriscvcore(fast)
-# End time: 20:44:11 on Apr 17,2018, Elapsed time: 0:00:01
+# End time: 21:16:31 on Apr 17,2018, Elapsed time: 0:00:02
 # Errors: 0, Warnings: 5

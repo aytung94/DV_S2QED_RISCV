@@ -17,5 +17,5 @@ clock -clear; clock clk
 reset -expression {!rstn};
 
 #Prove all
-#prove -bg -all
+prove -bg -all
 
