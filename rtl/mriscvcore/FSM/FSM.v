@@ -34,7 +34,7 @@ module FSM
     assign is_mem = codif[6:0] == 7'b0100011 || codif[6:0] == 7'b0000011 ? 1'b1 : 1'b0;    // OPCODE detection
     assign sign_mem = ~codif[9];    // This is the only bit differs signed/unsigned
     assign wordsize_mem = codif[8:7];    // This is the only bit differs wordsize
-    assign is_illisn = &codif || (codif == 12'b000011110011); // FIXME: Also is illegal if ebreak
+    assign is_illisn = 0;//&codif || (codif == 12'b000011110011); // FIXME: Also is illegal if ebreak
     
     // CHANGE PC Auxiliar determination
     reg enable_pc_aux, enable_pc_fsm;
