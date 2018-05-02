@@ -1,0 +1,104 @@
+Archive member included because of file (symbol)
+
+/usr/local/lib/gcc-lib/sh-elf/2.95.3/m2/libgcc.a(_ashiftlt.o)
+                              main.o (__ashlsi3)
+/usr/local/lib/gcc-lib/sh-elf/2.95.3/m2/libgcc.a(_udivsi3.o)
+                              main.o (__udivsi3)
+/usr/local/sh-elf/lib/libc.a(memcpy.o)
+                              main.o (memcpy)
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+ram              0x0000000000000000 0x0000000000003e00
+stack            0x0000000000003e00 0x0000000000000200
+*default*        0x0000000000000000 0xffffffffffffffff
+
+Linker script and memory map
+
+LOAD crt0.o
+LOAD main.o
+LOAD /usr/local/lib/gcc-lib/sh-elf/2.95.3/m2/libgcc.a
+LOAD /usr/local/sh-elf/lib/libc.a
+LOAD /usr/local/lib/gcc-lib/sh-elf/2.95.3/m2/libgcc.a
+
+.text           0x0000000000000000     0x1688
+ *(.text)
+ .text          0x0000000000000000      0x440 crt0.o
+ .text          0x0000000000000440     0x10a0 main.o
+                0x00000000000011f8                uart_rx_flush
+                0x0000000000001464                lcd_init
+                0x000000000000136c                lcd_pos
+                0x0000000000000f4e                asc2hex
+                0x0000000000000f34                hex2asc
+                0x0000000000001154                waitNms
+                0x000000000000048c                nmi_handler
+                0x00000000000012a4                lcd_cursor
+                0x0000000000000f6a                key_wait_on
+                0x00000000000005d0                main_sh
+                0x000000000000072c                utility
+                0x0000000000001220                uart_set_baudrate
+                0x0000000000000cac                command
+                0x00000000000013a8                lcd_ready
+                0x00000000000011a4                uart_rx
+                0x0000000000000440                irq_handler
+                0x00000000000011c4                uart_rx_echo
+                0x0000000000001418                lcd_wr
+                0x00000000000012dc                lcd_erase
+                0x00000000000013c8                lcd_rd
+                0x0000000000000ef4                get_byte_rx_echo
+                0x00000000000004ec                trap_handler
+                0x0000000000000d80                get_sformat
+                0x0000000000000584                error
+                0x0000000000000fc4                key_scan
+                0x0000000000000538                illegal
+                0x000000000000124c                lcd_disp_long
+                0x0000000000001184                uart_tx
+                0x0000000000000f98                key_wait_off
+                0x0000000000001340                lcd_disp
+                0x000000000000130c                lcd_message
+ .text          0x00000000000014e0       0x88 /usr/local/lib/gcc-lib/sh-elf/2.95.3/m2/libgcc.a(_ashiftlt.o)
+                0x00000000000014e0                __ashlsi3
+ .text          0x0000000000001568       0x8a /usr/local/lib/gcc-lib/sh-elf/2.95.3/m2/libgcc.a(_udivsi3.o)
+                0x0000000000001568                __udivsi3
+ *fill*         0x00000000000015f2 0xa04076800000002 00
+ .text          0x00000000000015f4       0x94 /usr/local/sh-elf/lib/libc.a(memcpy.o)
+                0x00000000000015f4                memcpy
+ *(.strings)
+                0x0000000000001688                _etext = .
+
+.tors           0x0000000000001688        0x0
+                0x0000000000001688                ___ctors = .
+ *(.ctors)
+                0x0000000000001688                ___ctors_end = .
+                0x0000000000001688                ___dtors = .
+ *(.dtors)
+                0x0000000000001688                ___dtors_end = .
+
+.rodata         0x0000000000001690      0x284
+ *(.rodata)
+ .rodata        0x0000000000001690      0x284 main.o
+
+.rela.dyn
+                0x000000000000190c                __idata_start = (((ADDR (.text) + SIZEOF (.text)) + SIZEOF (.tors)) + SIZEOF (.rodata))
+
+.data           0x0000000000001920        0x0 load address 0x0000000000001920
+                0x0000000000001920                __idata_start = .
+                0x0000000000001920                _sdata = .
+ *(.data)
+                0x0000000000001920                _edata = .
+                0x0000000000001920                __idata_end = (__idata_start + SIZEOF (.data))
+
+.bss            0x0000000000001920        0x0
+                0x0000000000001920                _bss_start = .
+ *(.bss)
+ *(COMMON)
+                0x0000000000001920                _end = .
+
+.stack          0x0000000000003e00        0x0
+                0x0000000000003e00                _stack = .
+ *(.stack)
+OUTPUT(main.elf elf32-sh)
+
+.comment        0x0000000000000000       0x26
+ .comment       0x0000000000000000       0x26 main.o

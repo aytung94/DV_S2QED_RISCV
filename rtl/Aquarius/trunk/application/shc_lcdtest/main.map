@@ -1,0 +1,72 @@
+Archive member included because of file (symbol)
+
+/usr/local/sh-elf/lib/libc.a(memcpy.o)
+                              main.o (memcpy)
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+ram              0x0000000000003000 0x0000000000000e00
+stack            0x0000000000003e00 0x0000000000000200
+*default*        0x0000000000000000 0xffffffffffffffff
+
+Linker script and memory map
+
+LOAD crt0.o
+LOAD main.o
+LOAD /usr/local/lib/gcc-lib/sh-elf/2.95.3/m2/libgcc.a
+LOAD /usr/local/sh-elf/lib/libc.a
+LOAD /usr/local/lib/gcc-lib/sh-elf/2.95.3/m2/libgcc.a
+
+.text           0x0000000000003000      0x364
+ *(.text)
+ .text          0x0000000000003000       0x30 crt0.o
+ .text          0x0000000000003030      0x2a0 main.o
+                0x0000000000003240                lcd_init
+                0x0000000000003110                lcd_pos
+                0x0000000000003030                main_sh
+                0x0000000000003150                lcd_ready
+                0x00000000000031e0                lcd_wr
+                0x0000000000003180                lcd_rd
+                0x00000000000030e0                lcd_disp
+                0x00000000000030a0                lcd_message
+ .text          0x00000000000032d0       0x94 /usr/local/sh-elf/lib/libc.a(memcpy.o)
+                0x00000000000032d0                memcpy
+ *(.strings)
+                0x0000000000003364                _etext = .
+
+.tors           0x0000000000003364        0x0
+                0x0000000000003364                ___ctors = .
+ *(.ctors)
+                0x0000000000003364                ___ctors_end = .
+                0x0000000000003364                ___dtors = .
+ *(.dtors)
+                0x0000000000003364                ___dtors_end = .
+
+.rodata         0x0000000000003370       0x14
+ *(.rodata)
+ .rodata        0x0000000000003370       0x14 main.o
+
+.rela.dyn
+                0x0000000000003378                __idata_start = (((ADDR (.text) + SIZEOF (.text)) + SIZEOF (.tors)) + SIZEOF (.rodata))
+
+.data           0x0000000000003390        0x0 load address 0x0000000000003390
+                0x0000000000003390                __idata_start = .
+                0x0000000000003390                _sdata = .
+ *(.data)
+                0x0000000000003390                _edata = .
+                0x0000000000003390                __idata_end = (__idata_start + SIZEOF (.data))
+
+.bss            0x0000000000003390        0x0
+                0x0000000000003390                _bss_start = .
+ *(.bss)
+ *(COMMON)
+                0x0000000000003390                _end = .
+
+.stack          0x0000000000003e00        0x0
+                0x0000000000003e00                _stack = .
+ *(.stack)
+OUTPUT(main.elf elf32-sh)
+
+.comment        0x0000000000000000       0x26
+ .comment       0x0000000000000000       0x26 main.o

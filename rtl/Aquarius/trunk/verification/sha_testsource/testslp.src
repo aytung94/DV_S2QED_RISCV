@@ -1,0 +1,279 @@
+/*
+===================
+test source program
+testslp.src
+
+Apr.30 2003
+===================
+
+address           size wait width device
+00000000-00001FFF  8K  0    32    ROM
+00010000-00011FFF  8K  3    32    ROM
+00020000-00021FFF  8K  0    16    ROM
+00030000-00031FFF  8K  3    16    ROM
+ABCD0000-ABCD0003   4  3    32    PIO
+ABCD0100-ABCD0103   4  3    32    UART
+ABCD0200-ABCD0207   8  3    32    SYS
+FFFCE000-FFFCFFFF  8K  0    32    RAM
+FFFDE000-FFFDFFFF  8K  3    32    RAM
+FFFEE000-FFFEFFFF  8K  0    16    RAM
+FFFFE000-FFFFFFFF  8K  3    16    RAM
+*/
+
+.equ _rom0, 0x00000000
+.equ _rom1, 0x00010000
+.equ _rom2, 0x00020000
+.equ _rom3, 0x00030000
+.equ _pio,  0xabcd0000
+.equ _uart, 0xabcd0100
+.equ _sys,  0xabcd0200
+.equ _ram0, 0xfffce000
+.equ _ram1, 0xfffde000
+.equ _ram2, 0xfffee000
+.equ _ram3, 0xffffe000
+
+/************
+ Vector Table
+ ************/
+.org _rom0
+.long _power_on_reset
+.long _ram0 + 0x02000
+.long _manual_reset
+.long _ram0 + 0x02000
+.long _gnrl_ilgl
+.long 0
+.long _slot_ilgl
+.long 0
+.long 0
+.long _cpuerr
+.long _dmaerr
+.long _nmi
+.long 0
+.org _rom0 + 0x0080
+.long _trap32
+.org _rom0 + 0x0090
+.long _trap36
+.org _rom0 + 0x00a0
+.long _trap40
+.org _rom0 + 0x00b0
+.long _trap44
+.org _rom0 + 0x00c0
+.long _trap48
+.org _rom0 + 0x00d0
+.long _trap52
+.org _rom0 + 0x00e0
+.long _trap56
+.org _rom0 + 0x00f0
+.long _trap60
+.org _rom0 + 0x0100
+.long _irq0
+.long _irq1
+.long _irq2
+.long _irq3
+.long _irq4
+.long _irq5
+.long _irq6
+.long _irq7
+
+.org 0x0400
+
+/**************
+ Power On Reset
+ **************/
+_power_on_reset:
+_manual_reset:
+ mov    #0, r14
+_test:
+ mov.l  _pfail, r13 !fail address
+ bra    _main_test
+ nop
+.align 4
+_pfail: .long _fail
+
+_main_test:
+
+/*****
+ SLEEP
+ *****/
+ sleep
+ mov #0xab, r0
+ nop
+ nop
+ nop
+ cmp/eq #0xab, r0
+ bt  .+6
+ jmp @r13
+ nop
+
+/************************/
+ bra _next
+ nop
+
+/*===================================================*/
+/************
+ TRAP Handler
+ ************/
+_trap32:
+_trap36:
+_trap40:
+_trap44:
+_trap48:
+_trap52:
+_trap56:
+_trap60:
+ mov    #0xff, r2
+ ldc    r2, sr
+
+ rte
+ mov    #0x66, r0
+
+/***********************
+ General Illegal Handler
+ ***********************/
+_gnrl_ilgl:
+ mov.l  @r15, r0
+ add    #2, r0
+ mov.l  r0, @r15
+
+ mov    #0xff, r2
+ ldc    r2, sr
+
+ rte
+ mov    #0x11, r0
+
+/********************
+ Slot Illegal Handler
+ ********************/
+_slot_ilgl:
+ mov    #0xff, r2
+ ldc    r2, sr
+
+ rte
+ mov    #0x22, r0
+
+/*************************
+ CPU Address Error Handler
+ *************************/
+_cpuerr:
+ mov    #0xff, r2
+ ldc    r2, sr
+
+ rte
+ mov    #0x33, r0
+
+/*************************
+ DMA Address Error Handler
+ *************************/
+_dmaerr:
+ mov    #0xff, r2
+ ldc    r2, sr
+
+ rte
+ mov    #0x44, r0
+
+/************************************
+ NMI (Non Maskable Interrupt) Handler
+ ************************************/
+_nmi:
+ mov.l  _psys, r3
+ mov.l  _p40a44fff, r0
+ mov.l  r0, @r3 ! Emulate IRQ4/level 10, pending
+
+ stc    sr, r2
+ rte
+ mov    #0x55, r0
+
+/*******************************
+ IRQ (Interrupt Request) Handler
+ *******************************/
+_irq0:
+_irq1:
+_irq2:
+_irq3:
+_irq5:
+_irq6:
+_irq7:
+ stc    sr, r2
+ rte
+ mov    #0x77, r0
+
+_irq4:
+ rte
+ nop
+
+
+/**************
+ Constant Table
+ **************/
+.align 4
+_pram0     : .long _ram0
+_psys      : .long _sys
+_p80000fff : .long 0x80000fff
+_p40a40fff : .long 0x40a40fff
+_p40f40fff : .long 0x40f40fff 
+_p40f44fff : .long 0x40f44fff 
+_p40a44fff : .long 0x40a44fff
+_p40147fff : .long 0x40147fff
+_p20000fff : .long 0x20000fff
+_p10000fff : .long 0x10000fff
+_p08000fff : .long 0x08000fff
+
+/*********************************************************
+ Move to another Next ROM area to check hardware operation
+ *********************************************************/
+.align 2
+_next:
+
+ mov.l _pbranch_table, r0
+ mov.l @(r0, r14), r12
+
+ add #4, r14
+
+ mov.l _pvector_top_table, r0
+ mov.l @(r0, r14), r1
+ ldc   r1, vbr
+
+ jmp @r12
+ nop
+
+.align 4
+_pbranch_table:     .long _branch_table
+_pvector_top_table: .long _vector_top_table
+_branch_table:
+ .long _rom1+_test
+ .long _rom2+_test
+ .long _rom3+_test
+ .long _rom0+_pass
+_vector_top_table:
+ .long _rom0
+ .long _rom1
+ .long _rom2
+ .long _rom3
+ .long _rom0
+
+/**************
+ Congraturation
+ **************/
+_pass:
+ mov.l _ppass_value, r0
+ mov.l _ppass_value, r1
+ mov.l r0, @r1
+ bra   _pass
+ nop
+.align 4
+_ppass_value: .long 0x12345678
+
+/**********
+ You Failed
+ **********/
+_fail:
+ mov.l _pfail_value, r0
+ mov.l _pfail_value, r1
+ bra   _fail
+ nop
+.align 4
+_pfail_value: .long 0x88888888
+
+.end
+
+

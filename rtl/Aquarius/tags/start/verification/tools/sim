@@ -1,0 +1,5 @@
+#!/bin/bash
+
+iverilog -o test -c test.txt
+vvp -v test
+

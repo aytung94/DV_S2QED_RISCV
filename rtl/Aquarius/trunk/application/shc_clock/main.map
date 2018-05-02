@@ -1,0 +1,121 @@
+Archive member included because of file (symbol)
+
+/usr/local/lib/gcc-lib/sh-elf/2.95.3/m2/libgcc.a(_ashiftlt.o)
+                              main.o (__ashlsi3)
+/usr/local/lib/gcc-lib/sh-elf/2.95.3/m2/libgcc.a(_sdivsi3.o)
+                              main.o (__sdivsi3)
+/usr/local/lib/gcc-lib/sh-elf/2.95.3/m2/libgcc.a(_udivsi3.o)
+                              main.o (__udivsi3)
+
+Allocating common symbols
+Common symbol       size              file
+
+clock               0x4               main.o
+min                 0x1               main.o
+hour                0x1               main.o
+sec                 0x1               main.o
+countup             0x4               main.o
+onesec              0x4               main.o
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+ram              0x0000000000002000 0x0000000000001e00
+stack            0x0000000000003e00 0x0000000000000200
+*default*        0x0000000000000000 0xffffffffffffffff
+
+Linker script and memory map
+
+LOAD crt0.o
+LOAD main.o
+LOAD /usr/local/lib/gcc-lib/sh-elf/2.95.3/m2/libgcc.a
+LOAD /usr/local/sh-elf/lib/libc.a
+LOAD /usr/local/lib/gcc-lib/sh-elf/2.95.3/m2/libgcc.a
+
+.text           0x0000000000002000      0xea0
+ *(.text)
+ .text          0x0000000000002000      0x440 crt0.o
+ .text          0x0000000000002440      0x8b0 main.o
+                0x0000000000002c74                lcd_init
+                0x0000000000002b7c                lcd_pos
+                0x00000000000027ce                asc2hex
+                0x00000000000027b4                hex2asc
+                0x00000000000029d4                waitNms
+                0x0000000000002484                nmi_handler
+                0x0000000000002ab4                lcd_cursor
+                0x00000000000027ea                key_wait_on
+                0x00000000000024ac                main_sh
+                0x0000000000002a04                lcd_disp_char
+                0x00000000000026c0                int_timer
+                0x00000000000026e8                command
+                0x0000000000002bb8                lcd_ready
+                0x0000000000002440                irq_handler
+                0x0000000000002c28                lcd_wr
+                0x0000000000002aec                lcd_erase
+                0x0000000000002bd8                lcd_rd
+                0x000000000000248e                trap_handler
+                0x0000000000002660                disp_time
+                0x00000000000024a2                error
+                0x0000000000002844                key_scan
+                0x0000000000002498                illegal
+                0x0000000000002a5c                lcd_disp_long
+                0x0000000000002818                key_wait_off
+                0x0000000000002b50                lcd_disp
+                0x0000000000002b1c                lcd_message
+ .text          0x0000000000002cf0       0x88 /usr/local/lib/gcc-lib/sh-elf/2.95.3/m2/libgcc.a(_ashiftlt.o)
+                0x0000000000002cf0                __ashlsi3
+ .text          0x0000000000002d78       0x9e /usr/local/lib/gcc-lib/sh-elf/2.95.3/m2/libgcc.a(_sdivsi3.o)
+                0x0000000000002d78                __sdivsi3
+ .text          0x0000000000002e16       0x8a /usr/local/lib/gcc-lib/sh-elf/2.95.3/m2/libgcc.a(_udivsi3.o)
+                0x0000000000002e16                __udivsi3
+ *(.strings)
+                0x0000000000002ea0                _etext = .
+
+.tors           0x0000000000002ea0        0x0
+                0x0000000000002ea0                ___ctors = .
+ *(.ctors)
+                0x0000000000002ea0                ___ctors_end = .
+                0x0000000000002ea0                ___dtors = .
+ *(.dtors)
+                0x0000000000002ea0                ___dtors_end = .
+
+.rodata         0x0000000000002ea0        0x0
+ *(.rodata)
+
+.rela.dyn
+                0x0000000000002ea0                __idata_start = (((ADDR (.text) + SIZEOF (.text)) + SIZEOF (.tors)) + SIZEOF (.rodata))
+
+.data           0x0000000000002ea0       0x5c load address 0x0000000000002ea0
+                0x0000000000002ea0                __idata_start = .
+                0x0000000000002ea0                _sdata = .
+ *(.data)
+ .data          0x0000000000002ea0       0x5c main.o
+                0x0000000000002eb4                mes_time
+                0x0000000000002ed4                mes_min
+                0x0000000000002ec0                mes_hour
+                0x0000000000002ee8                mes_sec
+                0x0000000000002ea0                mes_welcome
+                0x0000000000002efc                _edata = .
+                0x0000000000002efc                __idata_end = (__idata_start + SIZEOF (.data))
+
+.bss            0x0000000000002f00       0x10
+                0x0000000000002f00                _bss_start = .
+ *(.bss)
+ *(COMMON)
+ COMMON         0x0000000000002f00       0x10 main.o
+                                          0x0 (size before relaxing)
+                0x0000000000002f00                clock
+                0x0000000000002f04                min
+                0x0000000000002f05                hour
+                0x0000000000002f06                sec
+                0x0000000000002f08                countup
+                0x0000000000002f0c                onesec
+                0x0000000000002f10                _end = .
+
+.stack          0x0000000000003e00        0x0
+                0x0000000000003e00                _stack = .
+ *(.stack)
+OUTPUT(main.elf elf32-sh)
+
+.comment        0x0000000000000000       0x26
+ .comment       0x0000000000000000       0x26 main.o

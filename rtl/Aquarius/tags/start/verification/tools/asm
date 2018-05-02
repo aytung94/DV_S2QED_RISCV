@@ -1,0 +1,9 @@
+#!/bin/bash
+
+sh-elf-as -a $1 > lis
+sh-elf-as -o a.out $1
+
+sh-elf-objcopy -O srec --srec-forceS3 a.out obj
+
+./genrom obj
+

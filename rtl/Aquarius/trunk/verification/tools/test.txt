@@ -1,0 +1,24 @@
+// command 
+// iverilog -o test -c test.txt
+// vvp -v test
+//
+ defines.v
+ timescale.v
+ register.v
+ datapath.v
+ mult.v
+ decode.v
+ mem.v
+ cpu.v
+ rom.v
+ memory.v
+ pio.v
+ sasc_brg.v
+ sasc_fifo4.v
+ sasc_top.v
+ uart.v
+ lib.v
+ sys.v
+ top.v
+ test.v
+

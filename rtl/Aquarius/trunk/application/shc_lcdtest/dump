@@ -1,0 +1,4 @@
+#!/bin/bash
+
+sh-elf-objdump -D -msh2 $1 | less
+

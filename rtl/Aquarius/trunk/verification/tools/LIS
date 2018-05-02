@@ -1,0 +1,911 @@
+Hitachi Super-H GAS Big Endian sha_testsource/testalu.src 			page 1
+
+
+   1              	/*
+   2              	===================
+   3              	test source program
+   4              	testalu.src
+   5              	
+   6              	Sep.16 2002
+   7              	Nov.02 2002
+   8              	===================
+   9              	
+  10              	address           size wait width device
+  11              	00000000-00001FFF  8K  0    32    ROM
+  12              	00010000-00011FFF  8K  3    32    ROM
+  13              	00020000-00021FFF  8K  0    16    ROM
+  14              	00030000-00031FFF  8K  3    16    ROM
+  15              	ABCD0000-ABCD0003   4  3    32    PIO
+  16              	ABCD0100-ABCD0103   4  3    32    UART
+  17              	ABCD0200-ABCD0207   8  3    32    SYS
+  18              	FFFCE000-FFFCFFFF  8K  0    32    RAM
+  19              	FFFDE000-FFFDFFFF  8K  3    32    RAM
+  20              	FFFEE000-FFFEFFFF  8K  0    16    RAM
+  21              	FFFFE000-FFFFFFFF  8K  3    16    RAM
+  22              	*/
+  23              	
+  24              	.equ _rom0, 0x00000000
+  25              	.equ _rom1, 0x00010000
+  26              	.equ _rom2, 0x00020000
+  27              	.equ _rom3, 0x00030000
+  28              	.equ _pio,  0xabcd0000
+  29              	.equ _uart, 0xabcd0100
+  30              	.equ _sys,  0xabcd0200
+  31              	.equ _ram0, 0xfffce000
+  32              	.equ _ram1, 0xfffde000
+  33              	.equ _ram2, 0xfffee000
+  34              	.equ _ram3, 0xffffe000
+  35              	
+  36              	.org _rom0
+  37 0000 00000400 	.long _rom0 + _init - _rom0
+  38 0004 FFFD0000 	.long _ram0 + 0x02000
+  39              	
+  40 0008 00000000 	.org 0x0400
+  40      00000000 
+  40      00000000 
+  40      00000000 
+  40      00000000 
+  41              	
+  42              	/**************
+  43              	 Initialization
+  44              	 **************/
+  45              	_init:
+  46              	_start:
+  47 0400 EE00     	 mov    #0, r14
+  48              	_test:
+  49 0402 DD01     	 mov.l  _pfail, r13 !fail address
+  50 0404 A002     	 bra    _testgo
+  51 0406 0009     	 nop
+  52 0408 00000894 	_pfail: .long _fail
+  53              	_testgo:
+Hitachi Super-H GAS Big Endian sha_testsource/testalu.src 			page 2
+
+
+  54              	
+  55              	/*************
+  56              	 EXTU.B Rm, Rn
+  57              	 EXTU.W Rm, Rn
+  58              	 EXTS.B Rm, Rn
+  59              	 EXTS.W Rm, Rn
+  60              	 *************/
+  61 040c D014     	 mov.l  _p11223344, r0
+  62 040e 620C     	 extu.b r0, r2
+  63 0410 640D     	 extu.w r0, r4
+  64 0412 660E     	 exts.b r0, r6
+  65 0414 680F     	 exts.w r0, r8
+  66 0416 D114     	 mov.l  _p00000044, r1
+  67 0418 D314     	 mov.l  _p00003344, r3
+  68 041a D513     	 mov.l  _p00000044, r5
+  69 041c D713     	 mov.l  _p00003344, r7
+  70 041e 3210     	 cmp/eq r1, r2
+  71 0420 8B18     	 bf     _extfail
+  72 0422 3430     	 cmp/eq r3, r4
+  73 0424 8B16     	 bf     _extfail
+  74 0426 3650     	 cmp/eq r5, r6
+  75 0428 8B14     	 bf     _extfail
+  76 042a 3870     	 cmp/eq r7, r8
+  77 042c 8B12     	 bf     _extfail
+  78              	
+  79 042e D00D     	 mov.l  _paabbccdd, r0
+  80 0430 620C     	 extu.b r0, r2
+  81 0432 640D     	 extu.w r0, r4
+  82 0434 660E     	 exts.b r0, r6
+  83 0436 680F     	 exts.w r0, r8
+  84 0438 D10D     	 mov.l  _p000000dd, r1
+  85 043a D30E     	 mov.l  _p0000ccdd, r3
+  86 043c D50E     	 mov.l  _pffffffdd, r5
+  87 043e D70F     	 mov.l  _pffffccdd, r7
+  88 0440 3210     	 cmp/eq r1, r2
+  89 0442 8B07     	 bf     _extfail
+  90 0444 3430     	 cmp/eq r3, r4
+  91 0446 8B05     	 bf     _extfail
+  92 0448 3650     	 cmp/eq r5, r6
+  93 044a 8B03     	 bf     _extfail
+  94 044c 3870     	 cmp/eq r7, r8
+  95 044e 8B01     	 bf     _extfail
+  96              	
+  97 0450 A016     	 bra    _extpass
+  98 0452 0009     	 nop
+  99              	_extfail:
+ 100 0454 4D2B     	 jmp    @r13
+ 101 0456 0009     	 nop
+ 102 0458 00090009 	 .align 4
+ 102      00090009 
+ 103 0460 11223344 	_p11223344 : .long 0x11223344
+ 104 0464 AABBCCDD 	_paabbccdd : .long 0xaabbccdd
+ 105 0468 00000044 	_p00000044 : .long 0x00000044
+ 106 046c 00003344 	_p00003344 : .long 0x00003344
+ 107 0470 000000DD 	_p000000dd : .long 0x000000dd
+ 108 0474 0000CCDD 	_p0000ccdd : .long 0x0000ccdd
+ 109 0478 FFFFFFDD 	_pffffffdd : .long 0xffffffdd
+Hitachi Super-H GAS Big Endian sha_testsource/testalu.src 			page 3
+
+
+ 110 047c FFFFCCDD 	_pffffccdd : .long 0xffffccdd
+ 111              	_extpass :
+ 112              	
+ 113              	/***********
+ 114              	 NEGC Rm, Rn
+ 115              	 ***********/
+ 116 0480 0008     	 clrt             !negate 64bit value
+ 117 0482 E400     	 mov    #0x00, r4 !upper 32bit
+ 118 0484 E201     	 mov    #0x01, r2 !lower 32bit 
+ 119 0486 662A     	 negc   r2, r6
+ 120 0488 8901     	 bt     .+6
+ 121 048a 4D2B     	 jmp    @r13
+ 122 048c 0009     	 nop     
+ 123 048e 684A     	 negc   r4, r8
+ 124 0490 8901     	 bt     .+6
+ 125 0492 4D2B     	 jmp    @r13
+ 126 0494 0009     	 nop     
+ 127 0496 E4FF     	 mov    #0xff, r4
+ 128 0498 E2FF     	 mov    #0xff, r2
+ 129 049a 3480     	 cmp/eq r8, r4
+ 130 049c 8901     	 bt     .+6
+ 131 049e 4D2B     	 jmp    @r13
+ 132 04a0 0009     	 nop     
+ 133 04a2 3260     	 cmp/eq r6, r2
+ 134 04a4 8901     	 bt     .+6
+ 135 04a6 4D2B     	 jmp    @r13
+ 136 04a8 0009     	 nop
+ 137              	 
+ 138 04aa 0008     	 clrt
+ 139 04ac E200     	 mov    #0x00, r2
+ 140 04ae 602A     	 negc   r2, r0
+ 141 04b0 8B01     	 bf     .+6
+ 142 04b2 4D2B     	 jmp    @r13
+ 143 04b4 0009     	 nop
+ 144 04b6 8800     	 cmp/eq #0x00, r0
+ 145 04b8 8901     	 bt     .+6
+ 146 04ba 4D2B     	 jmp    @r13
+ 147 04bc 0009     	 nop
+ 148              	
+ 149              	/**********
+ 150              	 NEG Rm, Rn
+ 151              	 **********/
+ 152 04be E27F     	 mov    #127, r2
+ 153 04c0 602B     	 neg    r2, r0
+ 154 04c2 8881     	 cmp/eq #-127, r0
+ 155 04c4 8901     	 bt     .+6
+ 156 04c6 4D2B     	 jmp    @r13
+ 157 04c8 0009     	 nop     
+ 158              	
+ 159 04ca E280     	 mov    #-128, r2
+ 160 04cc 602B     	 neg    r2, r0
+ 161 04ce D404     	 mov.l  _p00000080, r4
+ 162 04d0 3040     	 cmp/eq r4, r0
+ 163 04d2 8901     	 bt     .+6
+ 164 04d4 4D2B     	 jmp    @r13
+ 165 04d6 0009     	 nop
+ 166              	
+Hitachi Super-H GAS Big Endian sha_testsource/testalu.src 			page 4
+
+
+ 167 04d8 A004     	 bra    _negpass
+ 168 04da 0009     	 nop
+ 169 04dc 00090009 	 .align 4
+ 170 04e0 00000080 	_p00000080 : .long 0x00000080
+ 171              	_negpass :
+ 172              	 
+ 173              	/*************
+ 174              	 SWAP.B Rm, Rn
+ 175              	 SWAP.W Rm, Rn
+ 176              	 *************/
+ 177 04e4 D2D9     	 mov.l  _p00112233, r2
+ 178 04e6 6428     	 swap.b r2, r4
+ 179 04e8 6629     	 swap.w r2, r6
+ 180 04ea D8DB     	 mov.l  _p00113322, r8
+ 181 04ec DADB     	 mov.l  _p22330011, r10
+ 182 04ee 3480     	 cmp/eq r8, r4
+ 183 04f0 8901     	 bt     .+6
+ 184 04f2 4D2B     	 jmp    @r13
+ 185 04f4 0009     	 nop     
+ 186 04f6 36A0     	 cmp/eq r10, r6
+ 187 04f8 8901     	 bt     .+6
+ 188 04fa 4D2B     	 jmp    @r13
+ 189 04fc 0009     	 nop     
+ 190              	
+ 191              	/**********
+ 192              	 NOT Rm, Rn
+ 193              	 **********/
+ 194 04fe E2AA     	 mov    #0xaa, r2
+ 195 0500 6027     	 not    r2, r0
+ 196 0502 8855     	 cmp/eq #0x55, r0
+ 197 0504 8901     	 bt     .+6
+ 198 0506 4D2B     	 jmp    @r13
+ 199 0508 0009     	 nop     
+ 200              	
+ 201              	/*********
+ 202              	 TAS.B @Rn
+ 203              	 *********/
+ 204 050a D1CD     	 mov.l  _pram0, r1
+ 205 050c E055     	 mov    #0x55, r0
+ 206 050e 2100     	 mov.b  r0, @r1
+ 207 0510 411B     	 tas.b  @r1
+ 208 0512 8B01     	 bf     .+6
+ 209 0514 4D2B     	 jmp    @r13
+ 210 0516 0009     	 nop     
+ 211 0518 6010     	 mov.b  @r1, r0
+ 212 051a 88D5     	 cmp/eq #0xd5, r0
+ 213 051c 8901     	 bt     .+6
+ 214 051e 4D2B     	 jmp    @r13
+ 215 0520 0009     	 nop     
+ 216              	
+ 217 0522 E000     	 mov    #0x00, r0
+ 218 0524 2100     	 mov.b  r0, @r1
+ 219 0526 411B     	 tas.b  @r1
+ 220 0528 8901     	 bt     .+6
+ 221 052a 4D2B     	 jmp    @r13
+ 222 052c 0009     	 nop     
+ 223 052e 6010     	 mov.b  @r1, r0
+Hitachi Super-H GAS Big Endian sha_testsource/testalu.src 			page 5
+
+
+ 224 0530 8880     	 cmp/eq #0x80, r0
+ 225 0532 8901     	 bt     .+6
+ 226 0534 4D2B     	 jmp    @r13
+ 227 0536 0009     	 nop     
+ 228              	
+ 229              	/*****
+ 230              	 DT Rn
+ 231              	 *****/
+ 232 0538 E200     	 mov    #0, r2
+ 233 053a E60A     	 mov    #10, r6
+ 234              	_loop_dt:
+ 235 053c 326C     	 add    r6, r2
+ 236 053e 4610     	 dt     r6
+ 237 0540 8BFC     	 bf     _loop_dt
+ 238 0542 6023     	 mov    r2, r0
+ 239 0544 8837     	 cmp/eq #55, r0
+ 240 0546 8901     	 bt     .+6
+ 241 0548 4D2B     	 jmp    @r13
+ 242 054a 0009     	 nop
+ 243              	
+ 244              	/***********
+ 245              	 SUBV Rm, Rn
+ 246              	 ***********/
+ 247 054c E07E     	 mov    #0x7e, r0
+ 248 054e E27F     	 mov    #0x7f, r2
+ 249 0550 302B     	 subv   r2, r0
+ 250 0552 8B01     	 bf     .+6
+ 251 0554 4D2B     	 jmp    @r13
+ 252 0556 0009     	 nop
+ 253 0558 88FF     	 cmp/eq #0xff, r0
+ 254 055a 8901     	 bt     .+6
+ 255 055c 4D2B     	 jmp    @r13
+ 256 055e 0009     	 nop
+ 257              	
+ 258 0560 D0B9     	 mov.l  _p80000000, r0
+ 259 0562 E201     	 mov    #0x01, r2
+ 260 0564 302B     	 subv   r2, r0
+ 261 0566 8901     	 bt     .+6
+ 262 0568 4D2B     	 jmp    @r13
+ 263 056a 0009     	 nop
+ 264 056c D2B5     	 mov.l  _p7fffffff, r2
+ 265 056e 3020     	 cmp/eq r2, r0
+ 266 0570 8901     	 bt     .+6
+ 267 0572 4D2B     	 jmp    @r13
+ 268 0574 0009     	 nop
+ 269              	
+ 270 0576 D0B3     	 mov.l  _p7fffffff, r0
+ 271 0578 E2FF     	 mov    #0xff, r2
+ 272 057a 302B     	 subv   r2, r0
+ 273 057c 8901     	 bt     .+6
+ 274 057e 4D2B     	 jmp    @r13
+ 275 0580 0009     	 nop
+ 276 0582 D2B1     	 mov.l  _p80000000, r2
+ 277 0584 3020     	 cmp/eq r2, r0
+ 278 0586 8901     	 bt     .+6
+ 279 0588 4D2B     	 jmp    @r13
+ 280 058a 0009     	 nop
+Hitachi Super-H GAS Big Endian sha_testsource/testalu.src 			page 6
+
+
+ 281              	
+ 282              	/***********
+ 283              	 SUBC Rm, Rn
+ 284              	 ***********/
+ 285 058c 0008     	 clrt
+ 286 058e E001     	 mov    #0x01, r0
+ 287 0590 E102     	 mov    #0x02, r1
+ 288 0592 301A     	 subc   r1, r0
+ 289 0594 8901     	 bt     .+6
+ 290 0596 4D2B     	 jmp    @r13
+ 291 0598 0009     	 nop
+ 292 059a 88FF     	 cmp/eq #0xff, r0 
+ 293 059c 8901     	 bt     .+6
+ 294 059e 4D2B     	 jmp    @r13
+ 295 05a0 0009     	 nop
+ 296              	
+ 297 05a2 0018     	 sett
+ 298 05a4 E004     	 mov    #0x04, r0
+ 299 05a6 E102     	 mov    #0x02, r1
+ 300 05a8 301A     	 subc   r1, r0
+ 301 05aa 8B01     	 bf     .+6
+ 302 05ac 4D2B     	 jmp    @r13
+ 303 05ae 0009     	 nop
+ 304 05b0 8801     	 cmp/eq #0x01, r0 
+ 305 05b2 8901     	 bt     .+6
+ 306 05b4 4D2B     	 jmp    @r13
+ 307 05b6 0009     	 nop
+ 308              	
+ 309              	/**********
+ 310              	 SUB Rm, Rn
+ 311              	 **********/
+ 312 05b8 E056     	 mov    #86, r0
+ 313 05ba E17F     	 mov    #127, r1
+ 314 05bc 3018     	 sub    r1, r0
+ 315 05be 88D7     	 cmp/eq #(86-127), r0
+ 316 05c0 8901     	 bt     .+6
+ 317 05c2 4D2B     	 jmp    @r13
+ 318 05c4 0009     	 nop
+ 319              	
+ 320              	/************
+ 321              	 ADD #imm, R0
+ 322              	 ************/
+ 323 05c6 E012     	 mov    #0x12, r0
+ 324 05c8 7034     	 add    #0x34, r0
+ 325 05ca 8846     	 cmp/eq #0x46, r0
+ 326 05cc 8901     	 bt     .+6
+ 327 05ce 4D2B     	 jmp    @r13
+ 328 05d0 0009     	 nop
+ 329 05d2 7001     	 add    #1, r0
+ 330 05d4 8847     	 cmp/eq #0x47, r0
+ 331 05d6 8901     	 bt     .+6
+ 332 05d8 4D2B     	 jmp    @r13
+ 333 05da 0009     	 nop
+ 334              	
+ 335              	/***********
+ 336              	 ADDV Rm, Rn
+ 337              	 ***********/
+Hitachi Super-H GAS Big Endian sha_testsource/testalu.src 			page 7
+
+
+ 338 05dc E0FF     	 mov    #0xff, r0
+ 339 05de E201     	 mov    #0x01, r2
+ 340 05e0 302F     	 addv   r2, r0
+ 341 05e2 8B01     	 bf     .+6
+ 342 05e4 4D2B     	 jmp    @r13
+ 343 05e6 0009     	 nop
+ 344 05e8 8800     	 cmp/eq #0x00, r0
+ 345 05ea 8901     	 bt     .+6
+ 346 05ec 4D2B     	 jmp    @r13
+ 347 05ee 0009     	 nop
+ 348              	
+ 349 05f0 D094     	 mov.l  _p7fffffff, r0
+ 350 05f2 E201     	 mov    #0x01, r2
+ 351 05f4 302F     	 addv   r2, r0
+ 352 05f6 8901     	 bt     .+6
+ 353 05f8 4D2B     	 jmp    @r13
+ 354 05fa 0009     	 nop
+ 355 05fc D292     	 mov.l  _p80000000, r2
+ 356 05fe 3020     	 cmp/eq r2, r0
+ 357 0600 8901     	 bt     .+6
+ 358 0602 4D2B     	 jmp    @r13
+ 359 0604 0009     	 nop
+ 360              	
+ 361 0606 D090     	 mov.l  _p80000000, r0
+ 362 0608 E2FF     	 mov    #0xff, r2
+ 363 060a 302F     	 addv   r2, r0
+ 364 060c 8901     	 bt     .+6
+ 365 060e 4D2B     	 jmp    @r13
+ 366 0610 0009     	 nop
+ 367 0612 D28C     	 mov.l  _p7fffffff, r2
+ 368 0614 3020     	 cmp/eq r2, r0
+ 369 0616 8901     	 bt     .+6
+ 370 0618 4D2B     	 jmp    @r13
+ 371 061a 0009     	 nop
+ 372              	
+ 373              	/***********
+ 374              	 ADDC Rm, Rn
+ 375              	 ***********/
+ 376 061c 0008     	 clrt
+ 377 061e E0FF     	 mov    #0xff, r0
+ 378 0620 E101     	 mov    #0x01, r1
+ 379 0622 301E     	 addc   r1, r0
+ 380 0624 8901     	 bt     .+6
+ 381 0626 4D2B     	 jmp    @r13
+ 382 0628 0009     	 nop
+ 383 062a 8800     	 cmp/eq #0x00, r0 
+ 384 062c 8901     	 bt     .+6
+ 385 062e 4D2B     	 jmp    @r13
+ 386 0630 0009     	 nop
+ 387              	
+ 388 0632 0018     	 sett
+ 389 0634 E0FD     	 mov    #0xfd, r0
+ 390 0636 E101     	 mov    #0x01, r1
+ 391 0638 301E     	 addc   r1, r0
+ 392 063a 8B01     	 bf     .+6
+ 393 063c 4D2B     	 jmp    @r13
+ 394 063e 0009     	 nop
+Hitachi Super-H GAS Big Endian sha_testsource/testalu.src 			page 8
+
+
+ 395 0640 88FF     	 cmp/eq #0xff, r0 
+ 396 0642 8901     	 bt     .+6
+ 397 0644 4D2B     	 jmp    @r13
+ 398 0646 0009     	 nop
+ 399              	
+ 400              	/**********
+ 401              	 ADD Rm, Rn
+ 402              	 **********/
+ 403 0648 E059     	 mov    #89, r0
+ 404 064a E180     	 mov    #-128, r1
+ 405 064c 301C     	 add    r1, r0
+ 406 064e 88D9     	 cmp/eq #(89-128), r0
+ 407 0650 8901     	 bt     .+6
+ 408 0652 4D2B     	 jmp    @r13
+ 409 0654 0009     	 nop
+ 410              	
+ 411              	/************
+ 412              	 XTRCT Rm, Rn
+ 413              	 ************/
+ 414 0656 D27D     	 mov.l  _p00112233, r2
+ 415 0658 D47D     	 mov.l  _p44556677, r4
+ 416 065a 224D     	 xtrct  r4, r2
+ 417 065c D67D     	 mov.l  _p66770011, r6
+ 418 065e 3260     	 cmp/eq r6, r2
+ 419 0660 8901     	 bt     .+6
+ 420 0662 4D2B     	 jmp    @r13
+ 421 0664 0009     	 nop
+ 422              	 
+ 423              	/**********
+ 424              	 XOR Rm, Rn
+ 425              	 **********/
+ 426 0666 E0AA     	 mov    #0xaa, r0
+ 427 0668 E255     	 mov    #0x55, r2
+ 428 066a 202A     	 xor    r2, r0
+ 429 066c C800     	 tst    #0x00, r0
+ 430 066e 8901     	 bt     .+6
+ 431 0670 4D2B     	 jmp    @r13
+ 432 0672 0009     	 nop
+ 433              	
+ 434 0674 E0AA     	 mov    #0xaa, r0 ! 1010
+ 435 0676 E277     	 mov    #0x77, r2 ! 0111
+ 436 0678 202A     	 xor    r2, r0
+ 437 067a 88DD     	 cmp/eq #0xdd, r0 ! 1101
+ 438 067c 8901     	 bt     .+6
+ 439 067e 4D2B     	 jmp    @r13
+ 440 0680 0009     	 nop
+ 441              	
+ 442              	/************
+ 443              	 XOR #imm, R0
+ 444              	 ************
+ 445              	 mov    #0xaa, r0
+ 446              	 extu.b r0, r0
+ 447              	 xor    #0x55, r0
+ 448              	 cmp/eq #0xff, r0
+ 449              	 bt     .+6
+ 450              	 jmp    @r13
+ 451              	 nop
+Hitachi Super-H GAS Big Endian sha_testsource/testalu.src 			page 9
+
+
+ 452              	
+ 453              	 mov    #0xaa, r0 ! 1010
+ 454              	 xor    #0x77, r0 ! 0111
+ 455              	 cmp/eq #0xdd, r0 ! 1101
+ 456              	 bt     .+6
+ 457              	 jmp    @r13
+ 458              	 nop
+ 459              	
+ 460              	/**********************
+ 461              	 XOR.B #imm, @(R0, GBR)
+ 462              	 **********************/
+ 463 0682 D16F     	 mov.l  _pram0, r1
+ 464 0684 411E     	 ldc    r1, gbr
+ 465              	
+ 466 0686 E0AA     	 mov    #0xaa, r0
+ 467 0688 8017     	 mov.b  r0, @(7, r1)
+ 468 068a E007     	 mov    #7, r0
+ 469 068c CE55     	 xor.b  #0x55, @(r0, gbr)
+ 470 068e 8417     	 mov.b  @(7, r1), r0
+ 471 0690 88FF     	 cmp/eq #0xff, r0
+ 472 0692 8901     	 bt     .+6
+ 473 0694 4D2B     	 jmp    @r13
+ 474 0696 0009     	 nop
+ 475              	!----
+ 476 0698 E0AA     	 mov    #0xaa, r0
+ 477 069a 8017     	 mov.b  r0, @(7, r1)
+ 478 069c E007     	 mov    #7, r0
+ 479 069e CE77     	 xor.b  #0x77, @(r0, gbr)
+ 480 06a0 8417     	 mov.b  @(7, r1), r0
+ 481 06a2 88DD     	 cmp/eq #0xdd, r0
+ 482 06a4 8901     	 bt     .+6
+ 483 06a6 4D2B     	 jmp    @r13
+ 484 06a8 0009     	 nop
+ 485              	
+ 486              	/**********
+ 487              	 TST Rm, Rn
+ 488              	 **********/
+ 489 06aa E2AA     	 mov    #0xaa, r2
+ 490 06ac E455     	 mov    #0x55, r4
+ 491 06ae 2248     	 tst    r4, r2
+ 492 06b0 0029     	 movt   r0
+ 493 06b2 8801     	 cmp/eq #0x01, r0
+ 494 06b4 8901     	 bt     .+6
+ 495 06b6 4D2B     	 jmp    @r13
+ 496 06b8 0009     	 nop
+ 497              	
+ 498 06ba E2AA     	 mov    #0xaa, r2
+ 499 06bc E45D     	 mov    #0x5d, r4
+ 500 06be 2248     	 tst    r4, r2
+ 501 06c0 0029     	 movt   r0
+ 502 06c2 8800     	 cmp/eq #0x00, r0
+ 503 06c4 8901     	 bt     .+6
+ 504 06c6 4D2B     	 jmp    @r13
+ 505 06c8 0009     	 nop
+ 506              	
+ 507              	/************
+ 508              	 TST #imm, R0
+Hitachi Super-H GAS Big Endian sha_testsource/testalu.src 			page 10
+
+
+ 509              	 ************/
+ 510 06ca E0AA     	 mov    #0xaa, r0
+ 511 06cc C855     	 tst    #0x55, r0
+ 512 06ce 0029     	 movt   r0
+ 513 06d0 8801     	 cmp/eq #0x01, r0
+ 514 06d2 8901     	 bt     .+6
+ 515 06d4 4D2B     	 jmp    @r13
+ 516 06d6 0009     	 nop
+ 517              	
+ 518 06d8 E0AA     	 mov    #0xaa, r0
+ 519 06da C8D5     	 tst    #0xd5, r0
+ 520 06dc 0029     	 movt   r0
+ 521 06de 8800     	 cmp/eq #0x00, r0
+ 522 06e0 8901     	 bt     .+6
+ 523 06e2 4D2B     	 jmp    @r13
+ 524 06e4 0009     	 nop
+ 525              	
+ 526              	/**********************
+ 527              	 TST.B #imm, @(R0, GBR)
+ 528              	 **********************/
+ 529 06e6 D156     	 mov.l  _pram0, r1
+ 530 06e8 411E     	 ldc    r1, gbr
+ 531              	
+ 532 06ea E0AA     	 mov    #0xaa, r0
+ 533 06ec 8019     	 mov.b  r0, @(9, r1)
+ 534              	
+ 535 06ee E009     	 mov    #9, r0
+ 536 06f0 0008     	 clrt
+ 537 06f2 CC55     	 tst.b  #0x55, @(r0, gbr)
+ 538 06f4 8901     	 bt     .+6
+ 539 06f6 4D2B     	 jmp    @r13
+ 540 06f8 0009     	 nop
+ 541              	
+ 542 06fa E0AA     	 mov    #0xaa, r0
+ 543 06fc 801B     	 mov.b  r0, @(11, r1)
+ 544              	
+ 545 06fe E00B     	 mov    #11, r0
+ 546 0700 0018     	 sett
+ 547 0702 CCD5     	 tst.b  #0xd5, @(r0, gbr)
+ 548 0704 8B01     	 bf     .+6
+ 549 0706 4D2B     	 jmp    @r13
+ 550 0708 0009     	 nop
+ 551              	 
+ 552              	/**********
+ 553              	 AND Rm, Rn
+ 554              	 **********/
+ 555 070a E000     	 mov    #0x00, r0
+ 556 070c E1FF     	 mov    #0xff, r1
+ 557 070e 2019     	 and    r1, r0
+ 558 0710 8800     	 cmp/eq #0x00, r0
+ 559 0712 8901     	 bt     .+6
+ 560 0714 4D2B     	 jmp    @r13
+ 561 0716 0009     	 nop
+ 562              	!----
+ 563 0718 E0AA     	 mov    #0xaa, r0
+ 564 071a E155     	 mov    #0x55, r1
+ 565 071c 2019     	 and    r1, r0
+Hitachi Super-H GAS Big Endian sha_testsource/testalu.src 			page 11
+
+
+ 566 071e 8800     	 cmp/eq #0x00, r0
+ 567 0720 8901     	 bt     .+6
+ 568 0722 4D2B     	 jmp    @r13
+ 569 0724 0009     	 nop
+ 570              	!----
+ 571 0726 E07E     	 mov    #0x7e, r0 !01111110
+ 572 0728 E1DB     	 mov    #0xdb, r1 !11011011
+ 573 072a 2019     	 and    r1, r0
+ 574 072c 885A     	 cmp/eq #0x5a, r0 !01011010
+ 575 072e 8901     	 bt     .+6
+ 576 0730 4D2B     	 jmp    @r13
+ 577 0732 0009     	 nop
+ 578              	
+ 579              	/************
+ 580              	 AND #imm, R0
+ 581              	 ************/
+ 582 0734 E000     	 mov    #0x00, r0
+ 583 0736 C9FF     	 and    #0xff, r0
+ 584 0738 8800     	 cmp/eq #0x00, r0
+ 585 073a 8901     	 bt     .+6
+ 586 073c 4D2B     	 jmp    @r13
+ 587 073e 0009     	 nop
+ 588              	!----
+ 589 0740 E0AA     	 mov    #0xaa, r0
+ 590 0742 C955     	 and    #0x55, r0
+ 591 0744 8800     	 cmp/eq #0x00, r0
+ 592 0746 8901     	 bt     .+6
+ 593 0748 4D2B     	 jmp    @r13
+ 594 074a 0009     	 nop
+ 595              	!----
+ 596 074c E07E     	 mov    #0x7e, r0 !01111110
+ 597 074e C9DB     	 and    #0xdb, r0 !11011011
+ 598 0750 885A     	 cmp/eq #0x5a, r0 !01011010
+ 599 0752 8901     	 bt     .+6
+ 600 0754 4D2B     	 jmp    @r13
+ 601 0756 0009     	 nop
+ 602              	
+ 603              	/**********************
+ 604              	 AND.B #imm, @(R0, GBR)
+ 605              	 **********************/
+ 606 0758 D139     	 mov.l  _pram0, r1
+ 607 075a 411E     	 ldc    r1, gbr
+ 608              	
+ 609 075c E000     	 mov    #0x00, r0
+ 610 075e 8017     	 mov.b  r0, @(7, r1)
+ 611 0760 E007     	 mov    #7, r0
+ 612 0762 CDFF     	 and.b  #0xff, @(r0, gbr)
+ 613 0764 8417     	 mov.b  @(7, r1), r0
+ 614 0766 8800     	 cmp/eq #0x00, r0
+ 615 0768 8901     	 bt     .+6
+ 616 076a 4D2B     	 jmp    @r13
+ 617 076c 0009     	 nop
+ 618              	!----
+ 619 076e E0AA     	 mov    #0xaa, r0
+ 620 0770 8017     	 mov.b  r0, @(7, r1)
+ 621 0772 E007     	 mov    #7, r0
+ 622 0774 CD55     	 and.b  #0x55, @(r0, gbr)
+Hitachi Super-H GAS Big Endian sha_testsource/testalu.src 			page 12
+
+
+ 623 0776 8417     	 mov.b  @(7, r1), r0
+ 624 0778 8800     	 cmp/eq #0x00, r0
+ 625 077a 8901     	 bt     .+6
+ 626 077c 4D2B     	 jmp    @r13
+ 627 077e 0009     	 nop
+ 628              	!----
+ 629 0780 E07E     	 mov    #0x7e, r0         !01111110
+ 630 0782 8017     	 mov.b  r0, @(7, r1)
+ 631 0784 E007     	 mov    #7, r0
+ 632 0786 CDDB     	 and.b  #0xdb, @(r0, gbr) !11011011
+ 633 0788 8417     	 mov.b  @(7, r1), r0
+ 634 078a 885A     	 cmp/eq #0x5a, r0         !01011010
+ 635 078c 8901     	 bt     .+6
+ 636 078e 4D2B     	 jmp    @r13
+ 637 0790 0009     	 nop
+ 638              	
+ 639              	/*********
+ 640              	 OR Rm, Rn
+ 641              	 *********/
+ 642 0792 E000     	 mov    #0x00, r0
+ 643 0794 E1FF     	 mov    #0xff, r1
+ 644 0796 201B     	 or     r1, r0
+ 645 0798 88FF     	 cmp/eq #0xff, r0
+ 646 079a 8901     	 bt     .+6
+ 647 079c 4D2B     	 jmp    @r13
+ 648 079e 0009     	 nop
+ 649              	!----
+ 650 07a0 E0AA     	 mov    #0xaa, r0
+ 651 07a2 E155     	 mov    #0x55, r1
+ 652 07a4 201B     	 or     r1, r0
+ 653 07a6 88FF     	 cmp/eq #0xff, r0
+ 654 07a8 8901     	 bt     .+6
+ 655 07aa 4D2B     	 jmp    @r13
+ 656 07ac 0009     	 nop
+ 657              	!----
+ 658 07ae E055     	 mov    #0x55, r0 !01010101
+ 659 07b0 E15A     	 mov    #0x5a, r1 !01011010
+ 660 07b2 201B     	 or     r1, r0
+ 661 07b4 885F     	 cmp/eq #0x5f, r0 !01011111
+ 662 07b6 8901     	 bt     .+6
+ 663 07b8 4D2B     	 jmp    @r13
+ 664 07ba 0009     	 nop
+ 665              	
+ 666              	/***********
+ 667              	 OR #imm, R0
+ 668              	 ***********/
+ 669 07bc E000     	 mov    #0x00, r0
+ 670 07be CBFF     	 or     #0xff, r0
+ 671 07c0 924E     	 mov.w  _p00ff, r2
+ 672 07c2 3020     	 cmp/eq r2, r0
+ 673 07c4 8901     	 bt     .+6
+ 674 07c6 4D2B     	 jmp    @r13
+ 675 07c8 0009     	 nop
+ 676              	!----
+ 677 07ca E0AA     	 mov    #0xaa, r0
+ 678 07cc CB55     	 or     #0x55, r0
+ 679 07ce 9248     	 mov.w  _pffff, r2
+Hitachi Super-H GAS Big Endian sha_testsource/testalu.src 			page 13
+
+
+ 680 07d0 3020     	 cmp/eq r2, r0
+ 681 07d2 8901     	 bt     .+6
+ 682 07d4 4D2B     	 jmp    @r13
+ 683 07d6 0009     	 nop
+ 684              	!----
+ 685 07d8 E055     	 mov    #0x55, r0 !01010101
+ 686 07da CB5A     	 or     #0x5a, r0 !01011010
+ 687 07dc 885F     	 cmp/eq #0x5f, r0 !01011111
+ 688 07de 8901     	 bt     .+6
+ 689 07e0 4D2B     	 jmp    @r13
+ 690 07e2 0009     	 nop
+ 691              	
+ 692              	/*********************
+ 693              	 OR.B #imm, @(R0, GBR)
+ 694              	 *********************/
+ 695 07e4 D116     	 mov.l  _pram0, r1
+ 696 07e6 411E     	 ldc    r1, gbr
+ 697              	
+ 698 07e8 E000     	 mov    #0x00, r0
+ 699 07ea 8017     	 mov.b  r0, @(7, r1)
+ 700 07ec E007     	 mov    #7, r0
+ 701 07ee CFFF     	 or.b  #0xff, @(r0, gbr)
+ 702 07f0 8417     	 mov.b  @(7, r1), r0
+ 703 07f2 88FF     	 cmp/eq #0xff, r0
+ 704 07f4 8901     	 bt     .+6
+ 705 07f6 4D2B     	 jmp    @r13
+ 706 07f8 0009     	 nop
+ 707              	!----
+ 708 07fa E0AA     	 mov    #0xaa, r0
+ 709 07fc 8017     	 mov.b  r0, @(7, r1)
+ 710 07fe E007     	 mov    #7, r0
+ 711 0800 CF55     	 or.b  #0x55, @(r0, gbr)
+ 712 0802 8417     	 mov.b  @(7, r1), r0
+ 713 0804 88FF     	 cmp/eq #0xff, r0
+ 714 0806 8901     	 bt     .+6
+ 715 0808 4D2B     	 jmp    @r13
+ 716 080a 0009     	 nop
+ 717              	!----
+ 718 080c E055     	 mov    #0x55, r0
+ 719 080e 8017     	 mov.b  r0, @(7, r1)
+ 720 0810 E007     	 mov    #7, r0
+ 721 0812 CF5A     	 or.b  #0x5a, @(r0, gbr)
+ 722 0814 8417     	 mov.b  @(7, r1), r0
+ 723 0816 885F     	 cmp/eq #0x5f, r0
+ 724 0818 8901     	 bt     .+6
+ 725 081a 4D2B     	 jmp    @r13
+ 726 081c 0009     	 nop
+ 727              	
+ 728              	/********
+ 729              	 CLRT
+ 730              	 SETT
+ 731              	 MOVT Rn
+ 732              	 ********/
+ 733 081e 0018     	 sett
+ 734 0820 0029     	 movt   r0
+ 735 0822 8801     	 cmp/eq #0x01, r0
+ 736 0824 8901     	 bt     .+6
+Hitachi Super-H GAS Big Endian sha_testsource/testalu.src 			page 14
+
+
+ 737 0826 4D2B     	 jmp    @r13
+ 738 0828 0009     	 nop
+ 739 082a 0008     	 clrt
+ 740 082c 0029     	 movt   r0
+ 741 082e 8800     	 cmp/eq #0x00, r0
+ 742 0830 8901     	 bt     .+6
+ 743 0832 4D2B     	 jmp    @r13
+ 744 0834 0009     	 nop 
+ 745              	
+ 746              	/**************
+ 747              	 Constant Table
+ 748              	 **************/
+ 749 0836 A015     	 bra    _constantend
+ 750 0838 0009     	 nop
+ 751 083a 00090009 	.align 4
+ 751      0009
+ 752 0840 FFFCE000 	_pram0     : .long _ram0
+ 753 0844 7FFFFFFF 	_p7fffffff : .long 0x7fffffff
+ 754 0848 80000000 	_p80000000 : .long 0x80000000
+ 755 084c 00112233 	_p00112233 : .long 0x00112233
+ 756 0850 44556677 	_p44556677 : .long 0x44556677
+ 757 0854 66770011 	_p66770011 : .long 0x66770011
+ 758 0858 00113322 	_p00113322 : .long 0x00113322
+ 759 085c 22330011 	_p22330011 : .long 0x22330011
+ 760              	.align 2
+ 761 0860 00FF     	_p00ff: .word 0x00ff
+ 762 0862 FFFF     	_pffff: .word 0xffff
+ 763              	.align 2
+ 764              	_constantend:
+ 765              	
+ 766              	/*********************************************************
+ 767              	 Move to another Next ROM area to check hardware operation
+ 768              	 *********************************************************/
+ 769 0864 DD02     	 mov.l _pbranch_table, r13
+ 770 0866 3DEC     	 add r14, r13
+ 771 0868 6CD2     	 mov.l @r13, r12
+ 772 086a 4C2B     	 jmp @r12
+ 773 086c 7E04     	 add #4, r14
+ 774 086e 0009     	.align 4
+ 775 0870 00000874 	_pbranch_table: .long _branch_table
+ 776              	_branch_table:
+ 777 0874 00010402 	 .long _rom1+_test
+ 778 0878 00020402 	 .long _rom2+_test
+ 779 087c 00030402 	 .long _rom3+_test
+ 780 0880 00000884 	 .long _rom0+_pass
+ 781              	
+ 782              	/**************
+ 783              	 Congraturation
+ 784              	 **************/
+ 785              	_pass:
+ 786 0884 D002     	 mov.l _ppass_value, r0
+ 787 0886 D102     	 mov.l _ppass_value, r1
+ 788 0888 2102     	 mov.l r0, @r1
+ 789 088a AFFB     	 bra   _pass
+ 790 088c 0009     	 nop
+ 791 088e 0009     	.align 4
+ 792 0890 12345678 	_ppass_value: .long 0x12345678
+Hitachi Super-H GAS Big Endian sha_testsource/testalu.src 			page 15
+
+
+ 793              	
+ 794              	/**********
+ 795              	 You Failed
+ 796              	 **********/
+ 797              	_fail:
+ 798 0894 D002     	 mov.l _pfail_value, r0
+ 799 0896 D102     	 mov.l _pfail_value, r1
+ 800 0898 AFFC     	 bra   _fail
+ 801 089a 0009     	 nop
+ 802 089c 00090009 	.align 4
+ 803 08a0 88888888 	_pfail_value: .long 0x88888888
+ 804              	
+ 805 08a4 00090009 	.end
+ 805      00090009 
+ 805      00090009 
+Hitachi Super-H GAS Big Endian sha_testsource/testalu.src 			page 16
+
+
+DEFINED SYMBOLS
+sha_testsource/testalu.src:24     *ABS*:0000000000000000 _rom0
+sha_testsource/testalu.src:25     *ABS*:0000000000010000 _rom1
+sha_testsource/testalu.src:26     *ABS*:0000000000020000 _rom2
+sha_testsource/testalu.src:27     *ABS*:0000000000030000 _rom3
+sha_testsource/testalu.src:28     *ABS*:00000000abcd0000 _pio
+sha_testsource/testalu.src:29     *ABS*:00000000abcd0100 _uart
+sha_testsource/testalu.src:30     *ABS*:00000000abcd0200 _sys
+sha_testsource/testalu.src:31     *ABS*:00000000fffce000 _ram0
+sha_testsource/testalu.src:32     *ABS*:00000000fffde000 _ram1
+sha_testsource/testalu.src:33     *ABS*:00000000fffee000 _ram2
+sha_testsource/testalu.src:34     *ABS*:00000000ffffe000 _ram3
+sha_testsource/testalu.src:45     .text:0000000000000400 _init
+sha_testsource/testalu.src:46     .text:0000000000000400 _start
+sha_testsource/testalu.src:48     .text:0000000000000402 _test
+sha_testsource/testalu.src:52     .text:0000000000000408 _pfail
+sha_testsource/testalu.src:53     .text:000000000000040c _testgo
+sha_testsource/testalu.src:797    .text:0000000000000894 _fail
+sha_testsource/testalu.src:103    .text:0000000000000460 _p11223344
+sha_testsource/testalu.src:105    .text:0000000000000468 _p00000044
+sha_testsource/testalu.src:106    .text:000000000000046c _p00003344
+sha_testsource/testalu.src:99     .text:0000000000000454 _extfail
+sha_testsource/testalu.src:104    .text:0000000000000464 _paabbccdd
+sha_testsource/testalu.src:107    .text:0000000000000470 _p000000dd
+sha_testsource/testalu.src:108    .text:0000000000000474 _p0000ccdd
+sha_testsource/testalu.src:109    .text:0000000000000478 _pffffffdd
+sha_testsource/testalu.src:110    .text:000000000000047c _pffffccdd
+sha_testsource/testalu.src:111    .text:0000000000000480 _extpass
+sha_testsource/testalu.src:170    .text:00000000000004e0 _p00000080
+sha_testsource/testalu.src:171    .text:00000000000004e4 _negpass
+sha_testsource/testalu.src:755    .text:000000000000084c _p00112233
+sha_testsource/testalu.src:758    .text:0000000000000858 _p00113322
+sha_testsource/testalu.src:759    .text:000000000000085c _p22330011
+sha_testsource/testalu.src:752    .text:0000000000000840 _pram0
+sha_testsource/testalu.src:234    .text:000000000000053c _loop_dt
+sha_testsource/testalu.src:754    .text:0000000000000848 _p80000000
+sha_testsource/testalu.src:753    .text:0000000000000844 _p7fffffff
+sha_testsource/testalu.src:756    .text:0000000000000850 _p44556677
+sha_testsource/testalu.src:757    .text:0000000000000854 _p66770011
+sha_testsource/testalu.src:761    .text:0000000000000860 _p00ff
+sha_testsource/testalu.src:762    .text:0000000000000862 _pffff
+sha_testsource/testalu.src:764    .text:0000000000000864 _constantend
+sha_testsource/testalu.src:775    .text:0000000000000870 _pbranch_table
+sha_testsource/testalu.src:776    .text:0000000000000874 _branch_table
+sha_testsource/testalu.src:785    .text:0000000000000884 _pass
+sha_testsource/testalu.src:792    .text:0000000000000890 _ppass_value
+sha_testsource/testalu.src:803    .text:00000000000008a0 _pfail_value
+                            *ABS*:0000000000000000 *ABS*
+
+NO UNDEFINED SYMBOLS

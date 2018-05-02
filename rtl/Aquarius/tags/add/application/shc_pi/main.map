@@ -1,0 +1,101 @@
+Archive member included because of file (symbol)
+
+/usr/local/lib/gcc-lib/sh-elf/2.95.3/m2/libgcc.a(_udivsi3.o)
+                              main.o (__udivsi3)
+/usr/local/sh-elf/lib/libc.a(memcpy.o)
+                              main.o (memcpy)
+
+Allocating common symbols
+Common symbol       size              file
+
+T1                  0x204             main.o
+T2                  0x204             main.o
+PI                  0x204             main.o
+T3                  0x204             main.o
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+ram              0x0000000000002000 0x0000000000001e00
+stack            0x0000000000003e00 0x0000000000000200
+*default*        0x0000000000000000 0xffffffffffffffff
+
+Linker script and memory map
+
+LOAD crt0.o
+LOAD main.o
+LOAD /usr/local/lib/gcc-lib/sh-elf/2.95.3/m2/libgcc.a
+LOAD /usr/local/sh-elf/lib/libc.a
+LOAD /usr/local/lib/gcc-lib/sh-elf/2.95.3/m2/libgcc.a
+
+.text           0x0000000000002000      0xae0
+ *(.text)
+ .text          0x0000000000002000       0x30 crt0.o
+ .text          0x0000000000002030      0x990 main.o
+                0x0000000000002580                lcd_init
+                0x0000000000002450                lcd_pos
+                0x0000000000002220                longdiv
+                0x0000000000002350                disp_oct4
+                0x0000000000002990                waitNms
+                0x0000000000002610                key_wait_on
+                0x0000000000002030                main_sh
+                0x0000000000002490                lcd_ready
+                0x0000000000002520                lcd_wr
+                0x0000000000002080                calc_pi
+                0x0000000000002170                longadd
+                0x00000000000024c0                lcd_rd
+                0x0000000000002290                disp_pi
+                0x00000000000021c0                longsub
+                0x00000000000026b0                key_scan
+                0x0000000000002660                key_wait_off
+                0x0000000000002420                lcd_disp
+                0x00000000000023e0                lcd_message
+ .text          0x00000000000029c0       0x8a /usr/local/lib/gcc-lib/sh-elf/2.95.3/m2/libgcc.a(_udivsi3.o)
+                0x00000000000029c0                __udivsi3
+ *fill*         0x0000000000002a4a 0xa04077000000002 00
+ .text          0x0000000000002a4c       0x94 /usr/local/sh-elf/lib/libc.a(memcpy.o)
+                0x0000000000002a4c                memcpy
+ *(.strings)
+                0x0000000000002ae0                _etext = .
+
+.tors           0x0000000000002ae0        0x0
+                0x0000000000002ae0                ___ctors = .
+ *(.ctors)
+                0x0000000000002ae0                ___ctors_end = .
+                0x0000000000002ae0                ___dtors = .
+ *(.dtors)
+                0x0000000000002ae0                ___dtors_end = .
+
+.rodata         0x0000000000002ae0       0x40
+ *(.rodata)
+ .rodata        0x0000000000002ae0       0x40 main.o
+
+.rela.dyn
+                0x0000000000002b20                __idata_start = (((ADDR (.text) + SIZEOF (.text)) + SIZEOF (.tors)) + SIZEOF (.rodata))
+
+.data           0x0000000000002b20        0x0 load address 0x0000000000002b20
+                0x0000000000002b20                __idata_start = .
+                0x0000000000002b20                _sdata = .
+ *(.data)
+                0x0000000000002b20                _edata = .
+                0x0000000000002b20                __idata_end = (__idata_start + SIZEOF (.data))
+
+.bss            0x0000000000002b20      0x810
+                0x0000000000002b20                _bss_start = .
+ *(.bss)
+ *(COMMON)
+ COMMON         0x0000000000002b20      0x810 main.o
+                                          0x0 (size before relaxing)
+                0x0000000000002b20                T1
+                0x0000000000002d24                T2
+                0x0000000000002f28                PI
+                0x000000000000312c                T3
+                0x0000000000003330                _end = .
+
+.stack          0x0000000000003e00        0x0
+                0x0000000000003e00                _stack = .
+ *(.stack)
+OUTPUT(main.elf elf32-sh)
+
+.comment        0x0000000000000000       0x26
+ .comment       0x0000000000000000       0x26 main.o

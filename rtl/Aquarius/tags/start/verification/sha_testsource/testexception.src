@@ -1,0 +1,983 @@
+/*
+===================
+test source program
+testexception.src
+
+Apr.03 2003
+===================
+
+address           size wait width device
+00000000-00001FFF  8K  0    32    ROM
+00010000-00011FFF  8K  3    32    ROM
+00020000-00021FFF  8K  0    16    ROM
+00030000-00031FFF  8K  3    16    ROM
+ABCD0000-ABCD0003   4  3    32    PIO
+ABCD0100-ABCD0103   4  3    32    UART
+ABCD0200-ABCD0207   8  3    32    SYS
+FFFCE000-FFFCFFFF  8K  0    32    RAM
+FFFDE000-FFFDFFFF  8K  3    32    RAM
+FFFEE000-FFFEFFFF  8K  0    16    RAM
+FFFFE000-FFFFFFFF  8K  3    16    RAM
+*/
+
+.equ _rom0, 0x00000000
+.equ _rom1, 0x00010000
+.equ _rom2, 0x00020000
+.equ _rom3, 0x00030000
+.equ _pio,  0xabcd0000
+.equ _uart, 0xabcd0100
+.equ _sys,  0xabcd0200
+.equ _ram0, 0xfffce000
+.equ _ram1, 0xfffde000
+.equ _ram2, 0xfffee000
+.equ _ram3, 0xffffe000
+
+/************
+ Vector Table
+ ************/
+.org _rom0
+.long _power_on_reset
+.long _ram0 + 0x02000
+.long _manual_reset
+.long _ram0 + 0x01ff0
+.long _gnrl_ilgl
+.long 0
+.long _slot_ilgl
+.long 0
+.long 0
+.long _cpuerr
+.long _dmaerr
+.long _nmi
+.long 0
+.org _rom0 + 0x0080
+.long _trap32
+.org _rom0 + 0x0090
+.long _trap36
+.org _rom0 + 0x00a0
+.long _trap40
+.org _rom0 + 0x00b0
+.long _trap44
+.org _rom0 + 0x00c0
+.long _trap48
+.org _rom0 + 0x00d0
+.long _trap52
+.org _rom0 + 0x00e0
+.long _trap56
+.org _rom0 + 0x00f0
+.long _trap60
+.org _rom0 + 0x0100
+.long _irq0
+.long _irq1
+.long _irq2
+.long _irq3
+.long _irq4
+.long _irq5
+.long _irq6
+.long _irq7
+
+.org 0x0400
+
+/**************
+ Power On Reset
+ **************/
+_power_on_reset:
+ mov    #0, r14
+_test:
+ mov.l  _pfail, r13 !fail address
+ bra    _main_test
+ nop
+.align 4
+_pfail: .long _fail
+
+_main_test:
+
+/*******************
+ Fetch from 1,3,5...
+ *******************/
+ mova   _fetchodd, r0
+ add    #1, r0
+ jmp    @r0
+ mov    #0xcc, r0
+
+_fetchodd:
+ nop
+ nop
+ nop
+ cmp/eq #0x33, r0
+ bt     .+6
+ jmp    @r13
+ nop
+
+/*********************
+ Actual NMI from Break
+ *********************/
+ mov.l  _psys_2, r3
+
+ mova   _break_adrs, r0 ! Set Break Addess
+ mov.l  r0, @(4,r3)
+
+ mov.l  _p01000fff, r4  ! NMI Break ON
+ mov.l  r4, @r3
+
+ mov    #0xaa, r0
+
+ mov    #0, r2
+ mov    #1, r2
+ mov    #2, r2
+ mov    #3, r2
+_break_adrs:
+ mov    #4, r2
+ mov    #5, r2
+ mov    #6, r2
+ mov    #7, r2
+ 
+ cmp/eq #0x55, r0
+ bt     .+6
+ jmp    @r13
+ nop
+ 
+/*********************
+ Actual IRQ from Timer
+ *********************/
+ mov    #0x00, r0
+ ldc    r0, sr
+
+ mov    #0x88, r0
+ mov.l  _psys_2, r3
+ mov.l  _p02140010, r4 ! IRQ Timer ON
+ mov.l  r4, @r3
+
+ mov    #0, r2
+ mov    #1, r2
+ mov    #2, r2
+ mov    #3, r2
+ mov    #4, r2
+ mov    #5, r2
+ mov    #6, r2
+ mov    #7, r2
+ mov    #8, r2
+ mov    #9, r2
+ mov    #10, r2
+ mov    #11, r2
+ mov    #12, r2
+ mov    #13, r2
+ mov    #14, r2
+ mov    #15, r2
+ mov    #16, r2
+ mov    #17, r2
+ mov    #18, r2
+ mov    #19, r2
+ mov    #20, r2
+ mov    #21, r2
+ mov    #22, r2
+ mov    #23, r2
+
+ mov.l  _p00000fff, r4 ! IRQ Timer OFF
+ mov.l  r4, @r3
+
+ cmp/eq #0x77, r0
+ bt     .+6
+ jmp    @r13
+ nop
+
+ mov    #0xf0, r0
+ ldc    r0, sr
+ bra    _skip_const
+ nop
+
+/**************
+ Constant Table
+ **************/
+.align 4
+_psys_2    : .long _sys
+_p02140010 : .long 0x02140010
+_p00000fff : .long 0x00000fff
+_p01000fff : .long 0x01000fff
+
+_skip_const:
+
+/************************
+ Actual CPU Address Error
+ ************************/
+ mov    #1, r1
+
+ mov    #0xcc, r0
+ mov.w  @r1, r2
+ nop
+ nop
+ nop
+ nop
+ cmp/eq #0x33, r0
+ bt     .+6
+ jmp    @r13
+ nop
+
+ mov    #0xcc, r0
+ mov.l  @r1, r2
+ nop
+ nop
+ nop
+ nop
+ cmp/eq #0x33, r0
+ bt     .+6
+ jmp    @r13
+ nop
+ 
+ mov    #2, r1
+
+ mov    #0xcc, r0
+ mov.l  @r1, r2
+ nop
+ nop
+ nop
+ nop
+ cmp/eq #0x33, r0
+ bt     .+6
+ jmp    @r13
+ nop
+
+ mov    #3, r1
+
+ mov    #0xcc, r0
+ mov.w  @r1, r2
+ nop
+ nop
+ nop
+ nop
+ cmp/eq #0x33, r0
+ bt     .+6
+ jmp    @r13
+ nop
+
+ mov    #0xcc, r0
+ mov.l  @r1, r2
+ nop
+ nop
+ nop
+ nop
+ cmp/eq #0x33, r0
+ bt     .+6
+ jmp    @r13
+ nop
+
+/********************
+ Emulate Manual Reset
+ ********************/
+ mov    #4, r1
+ mov.l  @r1, r15
+ mova   _manual_reset_2, r0
+ mov    r0, r5
+ mov.l  _psys, r3
+ mov.l  _p08000fff, r4 ! Manual Reset
+ mov.l  r4, @r3
+ bra    .
+ mov    r15, r1
+
+.align 4
+_manual_reset:
+ add    #-16, r1
+ cmp/eq r1, r15
+ bt     .+6
+ jmp    @r13
+ nop
+ jmp    @r5
+ nop
+
+_manual_reset_2:
+ mov.l _pvector_top_table, r0
+ mov.l @(r0, r14), r12
+ ldc   r12, vbr
+ 
+/*************************
+ Emulate DMA Address Error
+ *************************/
+ mov    #0x00, r0
+ ldc    r0, sr
+ mov    #0xbb, r0
+
+ mov.l  _psys, r3
+ mov.l  _p10000fff, r4 ! DMA Address Error
+ mov.l  r4, @r3
+ nop
+ nop
+
+ stc    sr, r2
+
+ cmp/eq #0x44, r0
+ bt     .+6
+ jmp    @r13
+ nop
+
+ mov    r2, r0
+ cmp/eq #0x00, r0
+ bt     .+6
+ jmp    @r13
+ nop
+
+/*************************
+ Emulate CPU Address Error
+ *************************/
+ mov    #0x00, r0
+ ldc    r0, sr
+ mov    #0xcc, r0
+
+ mov.l  _psys, r3
+ mov.l  _p20000fff, r4 ! CPU Address Error
+ mov.l  r4, @r3
+ nop
+ nop
+
+ stc    sr, r2
+
+ cmp/eq #0x33, r0
+ bt     .+6
+ jmp    @r13
+ nop
+
+ mov    r2, r0
+ cmp/eq #0x00, r0
+ bt     .+6
+ jmp    @r13
+ nop
+
+/************
+ IRQ Priority
+ ************/
+ bra    _irq_priority
+ nop
+.align 4
+_irq_priority:
+ mov.l  _psys, r3
+
+ mov    #0xf0, r0
+ mov.l  _p40f40fff, r4 ! IRQ0 level=f
+ mov.l  r4, @r3        ! not accepted
+ ldc    r0, sr
+
+ mov    #0xe0, r0
+ mov.l  _p40f44fff, r4 ! IRQ4 level=f
+ mov.l  r4, @r3
+ nop
+ nop
+ nop
+ nop
+ ldc    r0, sr         ! accept after next instruction
+ nop
+
+ mov    #0x00, r0
+ ldc    r0, sr
+ mov    #0x10, r0
+ mov.l  _p40147fff, r4 ! IRQ7 level=1
+ mov.l  r4, @r3        ! FDEM
+ nop                   !  fDE
+ ldc    r0, sr         !   FDE (I<-1)
+ nop                   !    fDE (int has masked)
+ nop                   !     FDE not accepted
+ nop
+ mov    #0x00, r0
+ ldc    r0, sr         ! accepted
+
+/***********
+ Emulate IRQ
+ ***********/
+ mov    #0x00, r0
+ ldc    r0, sr
+ mov    #0xaa, r0 
+
+ mov.l  _psys, r3
+ mov.l  _p40a40fff, r4
+ mov.l  r4, @r3 ! Emulate IRQ
+
+ mov    #0, r4
+ add    #1, r4
+ add    #1, r4
+ add    #1, r4
+ add    #1, r4
+ add    #1, r4
+ add    #1, r4
+ add    #1, r4
+ add    #1, r4
+ 
+ cmp/eq #0x77, r0
+ bt     .+6
+ jmp    @r13
+ nop
+ 
+ mov    #0xfc, r0
+ and    r0, r2
+ extu.b r2, r2
+ mov    #0xa0, r0
+ extu.b r0, r0
+ cmp/eq r2, r0
+ bt     .+6
+ jmp    @r13
+ nop
+
+ mov    r4, r0
+ cmp/eq #0x08, r0
+ bt     .+6
+ jmp    @r13
+ nop
+
+
+/***********
+ Emulate NMI
+ ***********/
+ mov    #0xf0, r0
+ ldc    r0, sr
+ mov    #0xaa, r0 
+
+ mov.l  _psys, r3
+ mov.l  _p80000fff, r4
+ mov.l  r4, @r3 ! Emulate NMI
+
+ mov    #0, r4
+ add    #1, r4
+ add    #1, r4
+ add    #1, r4
+ add    #1, r4
+ add    #1, r4
+ add    #1, r4
+ add    #1, r4
+ add    #1, r4
+
+ cmp/eq #0x55, r0
+ bt     .+6
+ jmp    @r13
+ nop
+
+ mov    #0xfc, r0
+ and    r0, r2
+ extu.b r2, r2
+ mov    #0xf0, r0
+ extu.b r0, r0
+ cmp/eq r2, r0
+ bt     .+6
+ jmp    @r13
+ nop
+
+ mov    r4, r0
+ cmp/eq #0x08, r0
+ bt     .+6
+ jmp    @r13
+ nop
+
+
+ mov.l  _p80000fff, r4
+ mov    #0x90, r0
+ mov.l  r4, @r3 ! IRQ service after NMI service
+ ldc    r0, sr 
+ nop
+
+/*****
+ TRAPA
+ *****/
+ mov    #0x00, r0
+ ldc    r0, sr
+ mov    #0xbb, r0
+
+ trapa  #32
+
+ stc    sr, r2
+
+ cmp/eq #0x66, r0
+ bt     .+6
+ jmp    @r13
+ nop
+
+ mov    r2, r0
+ cmp/eq #0x00, r0
+ bt     .+6
+ jmp    @r13
+ nop
+
+/***************************
+ General Illegal Instruction
+ ***************************/
+ mov    #0x00, r0
+ ldc    r0, sr
+ mov    #0xee, r0
+
+ .word 0xff00 ! Illegal Instruction
+
+ stc    sr, r2
+
+ cmp/eq #0x11, r0
+ bt     .+6
+ jmp    @r13
+ nop
+
+ mov    r2, r0
+ cmp/eq #0x00, r0
+ bt     .+6
+ jmp    @r13
+ nop
+
+/************************
+ Slot Illegal Instruction
+ ************************/
+ mov    #0x00, r0
+ ldc    r0, sr
+ mov    #0xdd, r0
+
+ bra    _target
+ bsr    _target
+ nop
+ nop
+ jmp    @r13
+ nop
+
+_target:
+ stc    sr, r2
+
+ cmp/eq #0x22, r0
+ bt     .+6
+ jmp    @r13
+ nop
+
+ mov    r2, r0
+ cmp/eq #0x00, r0
+ bt     .+6
+ jmp    @r13
+ nop
+/************************/
+ mov    #0x00, r0
+ ldc    r0, sr
+ mov    #0xdd, r0
+
+ bsr    _target2
+ trapa  #36
+ nop
+ nop
+ jmp    @r13
+ nop
+
+_target2:
+ stc    sr, r2
+
+ cmp/eq #0x22, r0
+ bt     .+6
+ jmp    @r13
+ nop
+
+ mov    r2, r0
+ cmp/eq #0x00, r0
+ bt     .+6
+ jmp    @r13
+ nop
+/************************/
+ mov    #0x00, r0
+ ldc    r0, sr
+ mov    #0xdd, r0
+
+ bsr    _target3
+ bsrf   r0
+ nop
+ nop
+ jmp    @r13
+ nop
+
+_target3:
+ stc    sr, r2
+
+ cmp/eq #0x22, r0
+ bt     .+6
+ jmp    @r13
+ nop
+
+ mov    r2, r0
+ cmp/eq #0x00, r0
+ bt     .+6
+ jmp    @r13
+ nop
+/************************/
+ mov    #0x00, r0
+ ldc    r0, sr
+ mov    #0xdd, r0
+
+ mov    #8, r1
+ bsrf   r1
+ braf   r1
+ nop
+ nop
+ jmp    @r13
+ nop
+
+_target4:
+ stc    sr, r2
+
+ cmp/eq #0x22, r0
+ bt     .+6
+ jmp    @r13
+ nop
+
+ mov    r2, r0
+ cmp/eq #0x00, r0
+ bt     .+6
+ jmp    @r13
+ nop
+/************************/
+ mov    #0x00, r0
+ ldc    r0, sr
+ mov    #0xdd, r0
+
+ mov    #8, r1
+ braf   r1
+ rte
+ nop
+ nop
+ jmp    @r13
+ nop
+
+_target5:
+ stc    sr, r2
+
+ cmp/eq #0x22, r0
+ bt     .+6
+ jmp    @r13
+ nop
+
+ mov    r2, r0
+ cmp/eq #0x00, r0
+ bt     .+6
+ jmp    @r13
+ nop
+/************************/
+ mov    #0x00, r0
+ mov.l  r0, @-r15
+ mova   _target6, r0
+ mov.l  r0, @-r15
+ mov    #0xdd, r0
+
+ rte
+ jsr    @r0
+ nop
+ nop
+ jmp    @r13
+ nop
+
+.align 4
+_target6:
+ stc    sr, r2
+
+ cmp/eq #0x22, r0
+ bt     .+6
+ jmp    @r13
+ nop
+
+ mov    r2, r0
+ cmp/eq #0x00, r0
+ bt     .+6
+ jmp    @r13
+ nop
+/************************/
+ mov    #0x00, r0
+ ldc    r0, sr
+ mova   _target7, r0
+ mov    r0, r1
+ mov    #0xdd, r0
+
+ jsr    @r1
+ jmp    @r1
+ nop
+ nop
+ jmp    @r13
+ nop
+
+.align 4
+_target7:
+ stc    sr, r2
+
+ cmp/eq #0x22, r0
+ bt     .+6
+ jmp    @r13
+ nop
+
+ mov    r2, r0
+ cmp/eq #0x00, r0
+ bt     .+6
+ jmp    @r13
+ nop
+/************************/
+ mov    #0x00, r0
+ ldc    r0, sr
+ mova   _target8, r0
+ mov    r0, r1
+ mov    #0xdd, r0
+
+ jmp    @r1
+ bt     _target8
+ nop
+ nop
+ jmp    @r13
+ nop
+
+.align 4
+_target8:
+ stc    sr, r2
+
+ cmp/eq #0x22, r0
+ bt     .+6
+ jmp    @r13
+ nop
+
+ mov    r2, r0
+ cmp/eq #0x00, r0
+ bt     .+6
+ jmp    @r13
+ nop
+/************************/
+ mov    #0x00, r0
+ ldc    r0, sr
+ mova   _target9, r0
+ mov    r0, r1
+ mov    #0xdd, r0
+
+ jmp    @r1
+ bt/s   _target9
+ nop
+ nop
+ jmp    @r13
+ nop
+
+.align 4
+_target9:
+ stc    sr, r2
+
+ cmp/eq #0x22, r0
+ bt     .+6
+ jmp    @r13
+ nop
+
+ mov    r2, r0
+ cmp/eq #0x00, r0
+ bt     .+6
+ jmp    @r13
+ nop
+/************************/
+ mov    #0x00, r0
+ ldc    r0, sr
+ mov    #0xdd, r0
+
+ bf/s   _target10
+ bra    _target10
+ nop
+ nop
+ jmp    @r13
+ nop
+
+_target10:
+ stc    sr, r2
+
+ cmp/eq #0x22, r0
+ bt     .+6
+ jmp    @r13
+ nop
+
+ mov    r2, r0
+ cmp/eq #0x00, r0
+ bt     .+6
+ jmp    @r13
+ nop
+/************************/
+ mov    #0x00, r0
+ ldc    r0, sr
+ mov    #0xdd, r0
+
+ bra    _target11
+ .word  0xffff ! General Illegal Instruction
+ nop
+ nop
+ jmp    @r13
+ nop
+
+_target11:
+ stc    sr, r2
+
+ cmp/eq #0x22, r0
+ bt     .+6
+ jmp    @r13
+ nop
+
+ mov    r2, r0
+ cmp/eq #0x00, r0
+ bt     .+6
+ jmp    @r13
+ nop
+/************************/
+ bra _next
+ nop
+
+/*===================================================*/
+/************
+ TRAP Handler
+ ************/
+_trap32:
+_trap36:
+_trap40:
+_trap44:
+_trap48:
+_trap52:
+_trap56:
+_trap60:
+ mov    #0xff, r2
+ ldc    r2, sr
+
+ rte
+ mov    #0x66, r0
+
+/***********************
+ General Illegal Handler
+ ***********************/
+_gnrl_ilgl:
+ mov.l  @r15, r0
+ add    #2, r0
+ mov.l  r0, @r15
+
+ mov    #0xff, r2
+ ldc    r2, sr
+
+ rte
+ mov    #0x11, r0
+
+/********************
+ Slot Illegal Handler
+ ********************/
+_slot_ilgl:
+ mov    #0xff, r2
+ ldc    r2, sr
+
+ rte
+ mov    #0x22, r0
+
+/*************************
+ CPU Address Error Handler
+ *************************/
+_cpuerr:
+ mov.l  @r15, r0
+ mov    #0xfe, r8
+ and    r8, r0
+ mov.l  r0, @r15
+
+ mov    #0xff, r2
+ ldc    r2, sr
+
+ rte
+ mov    #0x33, r0
+
+/*************************
+ DMA Address Error Handler
+ *************************/
+_dmaerr:
+ mov    #0xff, r2
+ ldc    r2, sr
+
+ rte
+ mov    #0x44, r0
+
+/************************************
+ NMI (Non Maskable Interrupt) Handler
+ ************************************/
+_nmi:
+ mov.l  _psys, r3
+ mov.l  _p40a44fff, r0
+ mov.l  r0, @r3 ! Emulate IRQ4/level 10, pending
+
+ stc    sr, r2
+ rte
+ mov    #0x55, r0
+
+/*******************************
+ IRQ (Interrupt Request) Handler
+ *******************************/
+_irq0:
+_irq1:
+_irq2:
+_irq3:
+_irq5:
+_irq6:
+_irq7:
+ stc    sr, r2
+ rte
+ mov    #0x77, r0
+
+_irq4:
+ rte
+ nop
+
+
+/**************
+ Constant Table
+ **************/
+.align 4
+_pram0     : .long _ram0
+_psys      : .long _sys
+_p80000fff : .long 0x80000fff
+_p40a40fff : .long 0x40a40fff
+_p40f40fff : .long 0x40f40fff 
+_p40f44fff : .long 0x40f44fff 
+_p40a44fff : .long 0x40a44fff
+_p40147fff : .long 0x40147fff
+_p20000fff : .long 0x20000fff
+_p10000fff : .long 0x10000fff
+_p08000fff : .long 0x08000fff
+
+/*********************************************************
+ Move to another Next ROM area to check hardware operation
+ *********************************************************/
+.align 2
+_next:
+
+ mov.l _pbranch_table, r0
+ mov.l @(r0, r14), r12
+
+ add #4, r14
+
+ mov.l _pvector_top_table, r0
+ mov.l @(r0, r14), r1
+ ldc   r1, vbr
+
+ jmp @r12
+ nop
+
+.align 4
+_pbranch_table:     .long _branch_table
+_pvector_top_table: .long _vector_top_table
+_branch_table:
+ .long _rom1+_test
+ .long _rom2+_test
+ .long _rom3+_test
+ .long _rom0+_pass
+_vector_top_table:
+ .long _rom0
+ .long _rom1
+ .long _rom2
+ .long _rom3
+ .long _rom0
+
+/**************
+ Congraturation
+ **************/
+_pass:
+ mov.l _ppass_value, r0
+ mov.l _ppass_value, r1
+ mov.l r0, @r1
+ bra   _pass
+ nop
+.align 4
+_ppass_value: .long 0x12345678
+
+/**********
+ You Failed
+ **********/
+_fail:
+ mov.l _pfail_value, r0
+ mov.l _pfail_value, r1
+ bra   _fail
+ nop
+.align 4
+_pfail_value: .long 0x88888888
+
+.end
+
+
