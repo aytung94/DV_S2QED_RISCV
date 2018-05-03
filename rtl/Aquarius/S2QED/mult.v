@@ -636,7 +636,7 @@ module mult(
                                   3'b101 : {ADDRESULT2,SAT} <= {64'h00007FFFFFFFFFFF,1'b1}; //-,P'
                                   3'b110 : {ADDRESULT2,SAT} <= {ADDRESULT,1'b0};            //-,M
                                   3'b111 : {ADDRESULT2,SAT} <= {64'hFFFF800000000000,1'b1}; //-,M'
-                                  default: {ADDRESULT2,SAT} <= {64'hxxxxxxxxxxxxxxxx,1'bx};
+                                  default: {ADDRESULT2,SAT} <= 65'h0;//EDITeD FOR Xs{64'hxxxxxxxxxxxxxxxx,1'bx};
                               endcase
                           else        // - rotation
                               case ({MACH[31], RESULT_REGION48})
@@ -648,7 +648,7 @@ module mult(
                                   3'b101 : {ADDRESULT2,SAT} <= {64'hFFFF800000000000,1'b1}; //-,P'
                                   3'b110 : {ADDRESULT2,SAT} <= {ADDRESULT,1'b0};            //-,M
                                   3'b111 : {ADDRESULT2,SAT} <= {64'hFFFF800000000000,1'b1}; //-,M'
-                                  default: {ADDRESULT2,SAT} <= {64'hxxxxxxxxxxxxxxxx,1'bx};
+                                  default: {ADDRESULT2,SAT} <= 65'h0;//EDITED FOR Xs{64'hxxxxxxxxxxxxxxxx,1'bx};
                               endcase
                       end
             2'b11   : begin // ADDS32
@@ -658,7 +658,7 @@ module mult(
                                   2'b01  : {ADDRESULT2,SAT} <= {64'h000000007FFFFFFF,1'b1}; //+,M
                                   2'b10  : {ADDRESULT2,SAT} <= {ADDRESULT,1'b0};            //-,P
                                   2'b11  : {ADDRESULT2,SAT} <= {ADDRESULT,1'b0};            //-,M
-                                  default: {ADDRESULT2,SAT} <= {64'hxxxxxxxxxxxxxxxx,1'bx};
+                                  default: {ADDRESULT2,SAT} <= 65'h0;//EDITED FOR Xs{64'hxxxxxxxxxxxxxxxx,1'bx};
                               endcase
                           else        // - rotation
                               case ({MACL[31], RESULT_REGION32})
@@ -666,11 +666,11 @@ module mult(
                                   2'b01  : {ADDRESULT2,SAT} <= {ADDRESULT,1'b0};            //+,M
                                   2'b10  : {ADDRESULT2,SAT} <= {64'hFFFFFFFF80000000,1'b1}; //-,P
                                   2'b11  : {ADDRESULT2,SAT} <= {ADDRESULT,1'b0};            //-,M
-                                  default: {ADDRESULT2,SAT} <= {64'hxxxxxxxxxxxxxxxx,1'bx};
+                                  default: {ADDRESULT2,SAT} <= 65'h0;//EDITED{64'hxxxxxxxxxxxxxxxx,1'bx};
                               endcase
                       end
             default : begin 
-                          ADDRESULT2 <= 64'hxxxxxxxxxxxxxxxx;
+                          ADDRESULT2 <= 64'h0;//EDITE64'hxxxxxxxxxxxxxxxx;
                           SAT <= 1'b0;
                       end
         endcase

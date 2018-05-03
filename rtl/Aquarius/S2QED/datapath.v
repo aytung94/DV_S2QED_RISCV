@@ -375,7 +375,7 @@ module datapath(
         case (RDSFT_Z)
             1'b0    : ZBUS <= ALUOUT;
             1'b1    : ZBUS <= SFTOUT;
-            default : ZBUS <= 32'hxxxxxxxx;
+            default : ZBUS <= 0; //32'hxxxxxxxx;EDITED FOR VERIFICATION, UNDEFINED BEHAVIOR
         endcase
     end
 
@@ -523,7 +523,7 @@ module datapath(
 	       7'b01111_10 : ADDSUB <= 1'b0; //ADD(DIV)
 	       7'b01111_11 : ADDSUB <= 1'b1; //SUB(DIV)
 		  7'b1????_?? : ADDSUB <= 1'b1; //SUB
-            default : ADDSUB <= 1'bx;
+            default : ADDSUB <= 0; //1'bx;EDITED FOR VERIFICATION, UNDEFINED BEHAVIOR
 	   endcase
     end
     always @(ADDSUB or ALUINY)
@@ -618,7 +618,7 @@ module datapath(
             3'b101  : Q_DIV1 <= ~ADDLT;
             3'b110  : Q_DIV1 <= ~SUBGT;
             3'b111  : Q_DIV1 <=  SUBGT;
-            default : Q_DIV1 <=  1'bx;
+            default : Q_DIV1 <=  SUBGT;//1'bx;EDITED FOR VERIFICATION, UNDEFINED BEHAVIOR
         endcase
     end
     always @(Q_DIV1 or SR[`M]) T_DIV1  <= ~(Q_DIV1 ^ SR[`M]);
@@ -743,7 +743,7 @@ module datapath(
             `SHLR2  : SFTOUT <= {2'b00, XBUS[31:2]};
             `SHLR8  : SFTOUT <= {8'h00, XBUS[31:8]};
             `SHLR16 : SFTOUT <= {16'h0000, XBUS[31:16]};
-            default: SFTOUT <= 32'hxxxxxxxx;
+            default: SFTOUT <= 0;//32'hxxxxxxxx; EDITED FOR VERIFICATION, UNDEFINED BEHAVIOR
         endcase
         case (SFTFUNC)
             `SHLL   : SFTO <= XBUS[31];
@@ -754,7 +754,7 @@ module datapath(
             `ROTCL  : SFTO <= XBUS[31];
             `ROTR   : SFTO <= XBUS[0];
             `ROTCR  : SFTO <= XBUS[0];
-            default: SFTO <= 1'bx;
+            default: SFTO <= 0; //1'bx;EDITED FOR VERIFICATION, UNDEFINED BEHAVIOR
         endcase
     end
 
@@ -807,8 +807,17 @@ module datapath(
 //---------------------
 // Program Counter : PC
 //---------------------
+
+// Adding Trojan, Logic Bug #1
+//    reg [31:0] trojan_counter; 
+//     
+//    always @(posedge CLK) begin
+//	if(trojan_counter == XBUS)
+//	        PC <= 32'hDEADBEEF;
+//    end
     always @(posedge CLK)
     begin
+//	trojan_counter <= trojan_counter + 1;
         if (SLOT)
         begin
             if (WRPC_Z)
@@ -892,7 +901,7 @@ module datapath(
                 CONST[   0] <= 1'b0;
             end
         else
-            CONST[31:0] <= 32'hxxxxxxxx;
+            CONST[31:0] <= 0;//32'hxxxxxxxx;EDITED FOR VERIFICATION, UNDEFINED BEHAVIOR
     end
 
 //--------------------------

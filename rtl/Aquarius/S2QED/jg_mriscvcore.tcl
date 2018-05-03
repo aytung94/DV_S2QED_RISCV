@@ -2,20 +2,20 @@
 #Use "source jg_mriscvcore.tcl" in the console to source this script
 
 #Reading the files 
-analyze -v2k {S2QED_top.v cpu.v memory.v mem.v decode.v datapath.v register.v};
+analyze -v2k {S2QED_top.v cpu.v mem.v decode.v datapath.v register.v mult.v};
 analyze -sv {jg_bind_wrapper.sv };
 
 #Elaborating the design
-elaborate -top {S2QED_top} -bbox_m {black_box mem memory pio uart sys mem};
+elaborate -top {S2QED_top} -bbox_m {black_box mem} -disable_auto_bbox;
 
 #You will need to add commands below
 
 #Set the clock
-clock -clear; clock CLK_SRC
+clock -clear; clock CLK;
 
 #Set Reset
-reset -expression {!RST_n};
+reset -expression {RST};
 
 #Prove all
-#prove -bg -all
+prove -bg -all
 

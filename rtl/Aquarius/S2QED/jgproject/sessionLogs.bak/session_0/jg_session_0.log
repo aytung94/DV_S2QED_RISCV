@@ -1,0 +1,909 @@
+#----------------------------------------
+# JasperGold Version Info
+# tool      : JasperGold 2015.09
+# platform  : Linux 2.6.32-696.20.1.el6.x86_64
+# version   : 2015.09 FCS 64 bits
+# build date: 2015.09.29 22:07:32 PDT
+#----------------------------------------
+# started Thu May 03 15:57:05 CDT 2018
+# hostname  : kamek
+# pid       : 20571
+# arguments : '-label' 'session_0' '-console' 'kamek:38756' '-style' 'windows' '-proj' '/home/ecelrc/students/atung/verif_labs/S2QED_Aquarius/DV_S2QED_RISCV/rtl/Aquarius/S2QED/jgproject/sessionLogs/session_0' '-init' '-hidden' '/home/ecelrc/students/atung/verif_labs/S2QED_Aquarius/DV_S2QED_RISCV/rtl/Aquarius/S2QED/jgproject/.tmp/.initCmds.tcl'
+
+Any disclosure about the Cadence Design Systems software or its use
+model to any third party violates the written Non-Disclosure Agreement
+between Cadence Design Systems, Inc. and the customer.
+
+THIS SOFTWARE CONTAINS CONFIDENTIAL INFORMATION AND TRADE SECRETS OF
+CADENCE DESIGN SYSTEMS, INC. USE, DISCLOSURE, OR REPRODUCTION IS
+PROHIBITED WITHOUT THE PRIOR EXPRESS WRITTEN PERMISSION OF CADENCE
+DESIGN SYSTEMS, INC.
+
+Copyright (C) 2000-2015 Cadence Design Systems, Inc. All Rights
+Reserved.  Unpublished -- rights reserved under the copyright laws of
+the United States.
+
+This product includes software developed by others and redistributed
+according to license agreement. See doc/third_party_readme.txt for
+further details.
+
+RESTRICTED RIGHTS LEGEND
+
+Use, duplication, or disclosure by the Government is subject to
+restrictions as set forth in subparagraph (c) (1) (ii) of the Rights in
+Technical Data and Computer Software clause at DFARS 252.227-7013 or
+subparagraphs (c) (1) and (2) of Commercial Computer Software -- Restricted
+Rights at 48 CFR 52.227-19, as applicable.
+
+
+                          Cadence Design Systems, Inc. 
+                          2655 Seely Avenue
+                          San Jose, CA 95134
+                          Phone: 408.943.1234
+
+For technical assistance visit http://support.cadence.com.
+
+JasperGold Apps Analysis Session - /home/ecelrc/students/atung/verif_labs/S2QED_Aquarius/DV_S2QED_RISCV/rtl/Aquarius/S2QED/jgproject/sessionLogs/session_0
+
+INFO: successfully checked out licenses "jasper_interactive" and "jasper_fpv".
+INFO: reading configuration file "/home/ecelrc/students/atung/.config/jasper/jaspergold.conf".
+% include /home/ecelrc/students/atung/verif_labs/S2QED_Aquarius/DV_S2QED_RISCV/rtl/Aquarius/S2QED/jg_mriscvcore.tcl
+%% #Tcl script which can be used with JasperGold
+%% #Use "source jg_mriscvcore.tcl" in the console to source this script
+%% 
+%% #Reading the files 
+%% analyze -v2k {S2QED_top.v cpu.v mem.v decode.v datapath.v register.v mult.v};
+[-- (VERI-1482)] Analyzing Verilog file S2QED_top.v
+[-- (VERI-1482)] Analyzing Verilog file cpu.v
+[INFO (VERI-1328)] cpu.v(60): analyzing included file timescale.v
+[INFO (VERI-1328)] cpu.v(61): analyzing included file defines.v
+[-- (VERI-1482)] Analyzing Verilog file mem.v
+[INFO (VERI-1328)] mem.v(73): analyzing included file timescale.v
+[INFO (VERI-1328)] mem.v(74): analyzing included file defines.v
+[-- (VERI-1482)] Analyzing Verilog file decode.v
+[INFO (VERI-1328)] decode.v(73): analyzing included file timescale.v
+[INFO (VERI-1328)] decode.v(74): analyzing included file defines.v
+[-- (VERI-1482)] Analyzing Verilog file datapath.v
+[INFO (VERI-1328)] datapath.v(68): analyzing included file timescale.v
+[INFO (VERI-1328)] datapath.v(69): analyzing included file defines.v
+[-- (VERI-1482)] Analyzing Verilog file register.v
+[INFO (VERI-1328)] register.v(60): analyzing included file timescale.v
+[INFO (VERI-1328)] register.v(61): analyzing included file defines.v
+[-- (VERI-1482)] Analyzing Verilog file mult.v
+[INFO (VERI-1328)] mult.v(60): analyzing included file timescale.v
+[INFO (VERI-1328)] mult.v(61): analyzing included file defines.v
+%% analyze -sv {jg_bind_wrapper.sv };
+[-- (VERI-1482)] Analyzing Verilog file /misc/linuxws/packages/cadence_2016/jasper_2015.09/lib/verilog/packages/std/std.sv into library std
+[-- (VERI-1482)] Analyzing Verilog file jg_bind_wrapper.sv
+[INFO (VERI-1328)] jg_bind_wrapper.sv(7): analyzing included file defines.v
+[WARN (VERI-1212)] jg_bind_wrapper.sv(170): block identifier is required on this block
+%% 
+%% #Elaborating the design
+%% elaborate -top {S2QED_top} -bbox_m {black_box mem} -disable_auto_bbox;
+INFO (ISW003): Top module name is "S2QED_top".
+[INFO (VERI-1018)] S2QED_top.v(33): compiling module S2QED_top
+[INFO (VERI-1018)] S2QED_top.v(1): compiling module black_box
+[INFO (VERI-1018)] cpu.v(66): compiling module cpu
+[INFO (VERI-1018)] mem.v(242): compiling module mem
+[INFO (VERI-1018)] decode.v(79): compiling module decode
+[WARN (VERI-1209)] decode.v(979): expression size 32 truncated to fit in target size 4
+[INFO (VERI-1018)] mult.v(80): compiling module mult
+[INFO (VERI-1018)] datapath.v(74): compiling module datapath
+[INFO (VERI-1018)] register.v(66): compiling module register
+[WARN (VDB-1000)] datapath.v(817): net PC[31] is constantly driven from multiple places
+[WARN (VDB-1001)] datapath.v(828): another driver from here
+[INFO (VERI-1018)] jg_bind_wrapper.sv(9): compiling module s2qed
+[INFO (VERI-9012)] jg_bind_wrapper.sv(140): Unintentional Sequential element inferred for wb_rose read before write using blocking assignment
+[WARN (VDB-1000)] S2QED_top.v(80): net CYC_O is constantly driven from multiple places
+[WARN (VDB-1001)] S2QED_top.v(96): another driver from here
+[INFO] Beginning multiple driver analysis
+[INFO] Finished multiple driver analysis
+[INFO] Module Name S2QED_top
+S2QED_top
+%% 
+%% #You will need to add commands below
+%% 
+%% #Set the clock
+%% clock -clear; clock CLK;
+%% 
+%% #Set Reset
+%% reset -expression {RST};
+INFO (IPM031): Invalidating proof results of all properties in the Property Manager.
+INFO (IRS006): Current reset condition is "RST".
+%% 
+%% #Prove all
+%% prove -bg -all
+INFO (IPF031): Settings used for this proof:
+    time_limit                    = 86400s
+    per_property_time_limit       = 1s * 10 ^ scan
+    engine_mode                   = Hp Ht N B 
+    proofgrid_per_engine_max_jobs = 1
+    proofgrid_mode                = local
+    proofgrid_restarts            = 10
+background
+%% 
+INFO (IPF036): Starting proof on task: "<embedded>", 94 properties to prove with 0 already proven/unreachable
+INFO (IRS029): Starting reset analysis: phase 1 of 4.
+INFO (IRS030): Running reset analysis phase 2 of 4.
+INFO (IRS031): Running reset analysis phase 3 of 4.
+INFO (IRS020): Starting the reset analysis simulation with a limit of 100 iterations (phase 4 of 4).
+INFO (IRS024): Reset iterations 0 to 4 analyzed.
+INFO (IRS018): Reset analysis simulation executed for 3 iterations. Assigned values for 377 of 2471 design flops, 0 of 64 design latches, 136 of 1416 internal elements.
+WARNING (WRS031): 72 of 2471 design flop(s) with asynchronous reset condition, but not reset. Run "get_reset_info -x_value -with_reset_pin" to get a list of such flops.
+Using multistage preprocessing
+Starting reduce
+Finished reduce in 0.064s
+Performing Proof Simplification...
+0.Hp: clocks: 3, declared: 1, disabling: 0, posedge: 3, negedge: 0, noedge: 0, bothedge: 0
+0.Hp: Proof Simplification Iteration 1	[0.00 s]
+0.Hp: Proof Simplification Iteration 2	[0.03 s]
+0.Hp: Proof Simplification Iteration 3	[0.06 s]
+0.Hp: Proof Simplification Iteration 4	[0.08 s]
+0.Hp: Proof Simplification Iteration 5	[0.11 s]
+Proof Simplification completed in 0.34 s
+0.Hp: Identified and disabled 56 duplicated targets.
+About to start distributed ProofGrid in its own thread with a limit of 20 pending notifications.
+ProofGrid usable level: 38
+0.Ht: Proofgrid shell started at 20783@kamek(local) jg_20571_kamek_1
+0.N: Proofgrid shell started at 20792@kamek(local) jg_20571_kamek_1
+0.Hp: Proofgrid shell started at 20774@kamek(local) jg_20571_kamek_1
+0.B: Proofgrid shell started at 20801@kamek(local) jg_20571_kamek_1
+0.Ht: clocks: 1, declared: 1, disabling: 0, posedge: 1, negedge: 0, noedge: 0, bothedge: 0
+0.N: clocks: 1, declared: 1, disabling: 0, posedge: 1, negedge: 0, noedge: 0, bothedge: 0
+0.Hp: clocks: 1, declared: 1, disabling: 0, posedge: 1, negedge: 0, noedge: 0, bothedge: 0
+0.B: clocks: 1, declared: 1, disabling: 0, posedge: 1, negedge: 0, noedge: 0, bothedge: 0
+0.N: Next scan (0) will use per property time limit: 1s * 10 ^ 0 = 1s
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_sec_1:precondition1"	[0.00 s].
+0.B: Next scan (0) will use per property time limit: 1s * 10 ^ 0 = 1s
+0.B: Starting proof for property "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_sec_1:precondition1"	[0.00 s].
+0.N: Trace Attempt  1	[0.02 s]
+0.N: A trace with 1 cycles was found. [0.02 s]
+INFO (IPF047): 0.N: The cover property "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_sec_1:precondition1" was covered in 1 cycles in 0.10 s.
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_sec_2:precondition1"	[0.00 s].
+0.N: Trace Attempt  1	[0.02 s]
+0.N: A trace with 1 cycles was found. [0.02 s]
+INFO (IPF047): 0.N: The cover property "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_sec_2:precondition1" was covered in 1 cycles in 0.03 s.
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_sec_3a:precondition1"	[0.00 s].
+0.N: Trace Attempt  1	[0.02 s]
+0.N: A trace with 1 cycles was found. [0.02 s]
+INFO (IPF047): 0.N: The cover property "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_sec_3a:precondition1" was covered in 1 cycles in 0.02 s.
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_sec_3b:precondition1"	[0.00 s].
+0.B: Trace Attempt  1	[0.09 s]
+0.N: Trace Attempt  1	[0.01 s]
+0.N: A trace with 1 cycles was found. [0.02 s]
+INFO (IPF047): 0.N: The cover property "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_sec_3b:precondition1" was covered in 1 cycles in 0.02 s.
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_sec_3c:precondition1"	[0.00 s].
+0.N: Trace Attempt  1	[0.02 s]
+0.N: A trace with 1 cycles was found. [0.02 s]
+INFO (IPF047): 0.N: The cover property "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_sec_3c:precondition1" was covered in 1 cycles in 0.02 s.
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_sec_4a:precondition1"	[0.00 s].
+0.Ht: Trace Attempt  1	[0.17 s]
+0.N: Trace Attempt  1	[0.02 s]
+0.N: A trace with 1 cycles was found. [0.02 s]
+INFO (IPF047): 0.N: The cover property "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_sec_4a:precondition1" was covered in 1 cycles in 0.02 s.
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_sec_4b:precondition1"	[0.00 s].
+0.N: Trace Attempt  1	[0.01 s]
+0.N: A trace with 1 cycles was found. [0.02 s]
+INFO (IPF047): 0.N: The cover property "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_sec_4b:precondition1" was covered in 1 cycles in 0.02 s.
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_sec_4c:precondition1"	[0.00 s].
+0.N: Trace Attempt  1	[0.03 s]
+0.N: A trace with 1 cycles was found. [0.03 s]
+INFO (IPF047): 0.N: The cover property "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_sec_4c:precondition1" was covered in 1 cycles in 0.02 s.
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_sec_5a:precondition1"	[0.00 s].
+0.Ht: A trace with 1 cycles was found. [0.23 s]
+INFO (IPF047): 0.Ht: The cover property "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_sec_5a:precondition1" was covered in 1 cycles in 0.28 s.
+0.N: Trace Attempt  1	[0.03 s]
+0.B: Starting proof for property "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_sec_5b:precondition1"	[0.00 s].
+0.Ht: A trace with 1 cycles was found. [0.24 s]
+INFO (IPF047): 0.Ht: The cover property "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_sec_5b:precondition1" was covered in 1 cycles in 0.30 s.
+0.Ht: A trace with 1 cycles was found. [0.25 s]
+INFO (IPF047): 0.Ht: The cover property "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_sec_6a:precondition1" was covered in 1 cycles in 0.32 s.
+0.Ht: A trace with 1 cycles was found. [0.26 s]
+INFO (IPF047): 0.Ht: The cover property "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_sec_6b:precondition1" was covered in 1 cycles in 0.34 s.
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_sec_5b:precondition1"	[0.00 s].
+0.N: Trace Attempt  1	[0.03 s]
+0.Ht: A trace with 1 cycles was found. [0.27 s]
+INFO (IPF047): 0.Ht: The cover property "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_sec_7:precondition1" was covered in 1 cycles in 0.36 s.
+0.Ht: A trace with 1 cycles was found. [0.28 s]
+INFO (IPF047): 0.Ht: The cover property "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_sec_8a:precondition1" was covered in 1 cycles in 0.39 s.
+0.Ht: A trace with 1 cycles was found. [0.29 s]
+INFO (IPF047): 0.Ht: The cover property "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_sec_8b:precondition1" was covered in 1 cycles in 0.41 s.
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_sec_7:precondition1"	[0.00 s].
+0.N: Trace Attempt  1	[0.03 s]
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_sec_8a:precondition1"	[0.00 s].
+0.B: Trace Attempt  1	[0.09 s]
+0.Ht: A trace with 1 cycles was found. [0.32 s]
+INFO (IPF047): 0.Ht: The cover property "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_sec_9:precondition1" was covered in 1 cycles in 0.43 s.
+0.Ht: A trace with 1 cycles was found. [0.33 s]
+INFO (IPF047): 0.Ht: The cover property "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_sec_10:precondition1" was covered in 1 cycles in 0.45 s.
+0.Ht: A trace with 1 cycles was found. [0.34 s]
+INFO (IPF047): 0.Ht: The cover property "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_sec_11:precondition1" was covered in 1 cycles in 0.47 s.
+0.Ht: Trace Attempt  2	[0.38 s]
+0.N: Trace Attempt  1	[0.03 s]
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_sec_9:precondition1"	[0.00 s].
+0.N: Trace Attempt  1	[0.02 s]
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_sec_10:precondition1"	[0.00 s].
+0.B: Starting proof for property "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_W_COND_MEM_WB_REG:precondition1"	[0.00 s].
+0.B: Starting proof for property "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_W_COND_MACH_WB_REG:precondition1"	[0.00 s].
+0.B: Starting proof for property "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_W_COND_sr:precondition1"	[0.00 s].
+0.B: Starting proof for property "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_W_COND_gbr:precondition1"	[0.00 s].
+0.B: Starting proof for property "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_W_COND_vbr:precondition1"	[0.00 s].
+0.B: Starting proof for property "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_W_COND_pr:precondition1"	[0.00 s].
+0.B: Starting proof for property "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_W_COND_pc:precondition1"	[0.00 s].
+0.B: Starting proof for property "S2QED_top.S2QED_BIND.[0].ast_S2QED_SAME_VAL_W_COND_reg_diff_x:precondition1"	[0.00 s].
+0.B: Starting proof for property "S2QED_top.S2QED_BIND.[0].ast_S2QED_SAME_VAL_W_COND_reg_diff_z:precondition1"	[0.00 s].
+0.B: Starting proof for property "S2QED_top.S2QED_BIND.[1].ast_S2QED_SAME_VAL_W_COND_reg_diff_x:precondition1"	[0.00 s].
+0.B: Starting proof for property "S2QED_top.S2QED_BIND.[1].ast_S2QED_SAME_VAL_W_COND_reg_diff_z:precondition1"	[0.00 s].
+0.B: Starting proof for property "S2QED_top.S2QED_BIND.[2].ast_S2QED_SAME_VAL_W_COND_reg_diff_x:precondition1"	[0.00 s].
+0.B: Starting proof for property "S2QED_top.S2QED_BIND.[2].ast_S2QED_SAME_VAL_W_COND_reg_diff_z:precondition1"	[0.00 s].
+0.B: Starting proof for property "S2QED_top.S2QED_BIND.[3].ast_S2QED_SAME_VAL_W_COND_reg_diff_x:precondition1"	[0.00 s].
+0.B: Starting proof for property "S2QED_top.S2QED_BIND.[3].ast_S2QED_SAME_VAL_W_COND_reg_diff_z:precondition1"	[0.00 s].
+0.B: Starting proof for property "S2QED_top.S2QED_BIND.[4].ast_S2QED_SAME_VAL_W_COND_reg_diff_x:precondition1"	[0.00 s].
+0.B: Starting proof for property "S2QED_top.S2QED_BIND.[4].ast_S2QED_SAME_VAL_W_COND_reg_diff_z:precondition1"	[0.00 s].
+0.B: Starting proof for property "S2QED_top.S2QED_BIND.[5].ast_S2QED_SAME_VAL_W_COND_reg_diff_x:precondition1"	[0.00 s].
+0.B: Starting proof for property "S2QED_top.S2QED_BIND.[5].ast_S2QED_SAME_VAL_W_COND_reg_diff_z:precondition1"	[0.00 s].
+0.B: Starting proof for property "S2QED_top.S2QED_BIND.[6].ast_S2QED_SAME_VAL_W_COND_reg_diff_x:precondition1"	[0.00 s].
+0.B: Starting proof for property "S2QED_top.S2QED_BIND.[6].ast_S2QED_SAME_VAL_W_COND_reg_diff_z:precondition1"	[0.00 s].
+0.B: Starting proof for property "S2QED_top.S2QED_BIND.[7].ast_S2QED_SAME_VAL_W_COND_reg_diff_x:precondition1"	[0.00 s].
+0.B: Starting proof for property "S2QED_top.S2QED_BIND.[7].ast_S2QED_SAME_VAL_W_COND_reg_diff_z:precondition1"	[0.00 s].
+0.B: Starting proof for property "S2QED_top.S2QED_BIND.[8].ast_S2QED_SAME_VAL_W_COND_reg_diff_x:precondition1"	[0.00 s].
+0.B: Starting proof for property "S2QED_top.S2QED_BIND.[8].ast_S2QED_SAME_VAL_W_COND_reg_diff_z:precondition1"	[0.00 s].
+0.B: Starting proof for property "S2QED_top.S2QED_BIND.[9].ast_S2QED_SAME_VAL_W_COND_reg_diff_x:precondition1"	[0.00 s].
+0.B: Starting proof for property "S2QED_top.S2QED_BIND.[9].ast_S2QED_SAME_VAL_W_COND_reg_diff_z:precondition1"	[0.00 s].
+0.B: Starting proof for property "S2QED_top.S2QED_BIND.[10].ast_S2QED_SAME_VAL_W_COND_reg_diff_x:precondition1"	[0.00 s].
+0.B: Starting proof for property "S2QED_top.S2QED_BIND.[10].ast_S2QED_SAME_VAL_W_COND_reg_diff_z:precondition1"	[0.00 s].
+0.B: Starting proof for property "S2QED_top.S2QED_BIND.[11].ast_S2QED_SAME_VAL_W_COND_reg_diff_x:precondition1"	[0.00 s].
+0.B: Starting proof for property "S2QED_top.S2QED_BIND.[11].ast_S2QED_SAME_VAL_W_COND_reg_diff_z:precondition1"	[0.00 s].
+0.B: Starting proof for property "S2QED_top.S2QED_BIND.[12].ast_S2QED_SAME_VAL_W_COND_reg_diff_x:precondition1"	[0.00 s].
+0.B: Starting proof for property "S2QED_top.S2QED_BIND.[12].ast_S2QED_SAME_VAL_W_COND_reg_diff_z:precondition1"	[0.00 s].
+0.B: Starting proof for property "S2QED_top.S2QED_BIND.[13].ast_S2QED_SAME_VAL_W_COND_reg_diff_x:precondition1"	[0.00 s].
+0.B: Starting proof for property "S2QED_top.S2QED_BIND.[13].ast_S2QED_SAME_VAL_W_COND_reg_diff_z:precondition1"	[0.00 s].
+0.B: Starting proof for property "S2QED_top.S2QED_BIND.[14].ast_S2QED_SAME_VAL_W_COND_reg_diff_x:precondition1"	[0.00 s].
+0.B: Starting proof for property "S2QED_top.S2QED_BIND.[14].ast_S2QED_SAME_VAL_W_COND_reg_diff_z:precondition1"	[0.00 s].
+0.B: Starting proof for property "S2QED_top.S2QED_BIND.[15].ast_S2QED_SAME_VAL_W_COND_reg_diff_x:precondition1"	[0.00 s].
+0.B: Starting proof for property "S2QED_top.S2QED_BIND.[15].ast_S2QED_SAME_VAL_W_COND_reg_diff_z:precondition1"	[0.00 s].
+0.B: Starting proof for property "S2QED_top.S2QED_BIND.ast_S2QED_SAME_VAL_W_COND_mach_diff_x:precondition1"	[0.00 s].
+0.B: Starting proof for property "S2QED_top.S2QED_BIND.ast_S2QED_SAME_VAL_W_COND_macl_diff_x:precondition1"	[0.00 s].
+0.Ht: Trace Attempt  3	[0.40 s]
+0.Ht: Trace Attempt  4	[0.44 s]
+0.Ht: Trace Attempt  5	[0.46 s]
+0.N: Trace Attempt  1	[0.02 s]
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_sec_11:precondition1"	[0.00 s].
+0.N: Trace Attempt  1	[0.03 s]
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_W_COND_MEM_WB_REG:precondition1"	[0.00 s].
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_W_COND_MACH_WB_REG:precondition1"	[0.00 s].
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_W_COND_sr:precondition1"	[0.00 s].
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_W_COND_gbr:precondition1"	[0.00 s].
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_W_COND_vbr:precondition1"	[0.00 s].
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_W_COND_pr:precondition1"	[0.00 s].
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_W_COND_pc:precondition1"	[0.00 s].
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.[0].ast_S2QED_SAME_VAL_W_COND_reg_diff_x:precondition1"	[0.00 s].
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.[0].ast_S2QED_SAME_VAL_W_COND_reg_diff_z:precondition1"	[0.00 s].
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.[1].ast_S2QED_SAME_VAL_W_COND_reg_diff_x:precondition1"	[0.00 s].
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.[1].ast_S2QED_SAME_VAL_W_COND_reg_diff_z:precondition1"	[0.00 s].
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.[2].ast_S2QED_SAME_VAL_W_COND_reg_diff_x:precondition1"	[0.00 s].
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.[2].ast_S2QED_SAME_VAL_W_COND_reg_diff_z:precondition1"	[0.00 s].
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.[3].ast_S2QED_SAME_VAL_W_COND_reg_diff_x:precondition1"	[0.00 s].
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.[3].ast_S2QED_SAME_VAL_W_COND_reg_diff_z:precondition1"	[0.00 s].
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.[4].ast_S2QED_SAME_VAL_W_COND_reg_diff_x:precondition1"	[0.00 s].
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.[4].ast_S2QED_SAME_VAL_W_COND_reg_diff_z:precondition1"	[0.00 s].
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.[5].ast_S2QED_SAME_VAL_W_COND_reg_diff_x:precondition1"	[0.00 s].
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.[5].ast_S2QED_SAME_VAL_W_COND_reg_diff_z:precondition1"	[0.00 s].
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.[6].ast_S2QED_SAME_VAL_W_COND_reg_diff_x:precondition1"	[0.00 s].
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.[6].ast_S2QED_SAME_VAL_W_COND_reg_diff_z:precondition1"	[0.00 s].
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.[7].ast_S2QED_SAME_VAL_W_COND_reg_diff_x:precondition1"	[0.00 s].
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.[7].ast_S2QED_SAME_VAL_W_COND_reg_diff_z:precondition1"	[0.00 s].
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.[8].ast_S2QED_SAME_VAL_W_COND_reg_diff_x:precondition1"	[0.00 s].
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.[8].ast_S2QED_SAME_VAL_W_COND_reg_diff_z:precondition1"	[0.00 s].
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.[9].ast_S2QED_SAME_VAL_W_COND_reg_diff_x:precondition1"	[0.00 s].
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.[9].ast_S2QED_SAME_VAL_W_COND_reg_diff_z:precondition1"	[0.00 s].
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.[10].ast_S2QED_SAME_VAL_W_COND_reg_diff_x:precondition1"	[0.00 s].
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.[10].ast_S2QED_SAME_VAL_W_COND_reg_diff_z:precondition1"	[0.00 s].
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.[11].ast_S2QED_SAME_VAL_W_COND_reg_diff_x:precondition1"	[0.00 s].
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.[11].ast_S2QED_SAME_VAL_W_COND_reg_diff_z:precondition1"	[0.00 s].
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.[12].ast_S2QED_SAME_VAL_W_COND_reg_diff_x:precondition1"	[0.00 s].
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.[12].ast_S2QED_SAME_VAL_W_COND_reg_diff_z:precondition1"	[0.00 s].
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.[13].ast_S2QED_SAME_VAL_W_COND_reg_diff_x:precondition1"	[0.00 s].
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.[13].ast_S2QED_SAME_VAL_W_COND_reg_diff_z:precondition1"	[0.00 s].
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.[14].ast_S2QED_SAME_VAL_W_COND_reg_diff_x:precondition1"	[0.00 s].
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.[14].ast_S2QED_SAME_VAL_W_COND_reg_diff_z:precondition1"	[0.00 s].
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.[15].ast_S2QED_SAME_VAL_W_COND_reg_diff_x:precondition1"	[0.00 s].
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.[15].ast_S2QED_SAME_VAL_W_COND_reg_diff_z:precondition1"	[0.00 s].
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.ast_S2QED_SAME_VAL_W_COND_mach_diff_x:precondition1"	[0.00 s].
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.ast_S2QED_SAME_VAL_W_COND_macl_diff_x:precondition1"	[0.00 s].
+0.N: Trace Attempt  1	[0.03 s]
+0.N: Trace Attempt  1	[0.03 s]
+0.N: Trace Attempt  2	[0.03 s]
+0.N: Trace Attempt  3	[0.03 s]
+0.Ht: Trace Attempt  7	[0.53 s]
+0.Ht: A trace with 7 cycles was found. [0.54 s]
+0.Ht: A trace with 7 cycles was found. [0.54 s]
+0.Ht: A trace with 7 cycles was found. [0.54 s]
+0.Ht: A trace with 7 cycles was found. [0.54 s]
+0.Ht: A trace with 7 cycles was found. [0.54 s]
+0.Ht: A trace with 7 cycles was found. [0.54 s]
+0.Ht: A trace with 7 cycles was found. [0.54 s]
+0.Ht: A trace with 7 cycles was found. [0.54 s]
+0.Ht: A trace with 7 cycles was found. [0.54 s]
+0.Ht: A trace with 7 cycles was found. [0.54 s]
+0.Ht: A trace with 7 cycles was found. [0.54 s]
+0.Ht: A trace with 7 cycles was found. [0.54 s]
+0.Ht: A trace with 7 cycles was found. [0.54 s]
+0.Ht: A trace with 7 cycles was found. [0.54 s]
+0.Ht: A trace with 7 cycles was found. [0.54 s]
+0.Ht: A trace with 7 cycles was found. [0.54 s]
+0.Ht: A trace with 7 cycles was found. [0.54 s]
+0.Ht: A trace with 7 cycles was found. [0.54 s]
+0.Ht: A trace with 7 cycles was found. [0.54 s]
+0.Ht: A trace with 7 cycles was found. [0.54 s]
+0.Ht: A trace with 7 cycles was found. [0.54 s]
+0.Ht: A trace with 7 cycles was found. [0.54 s]
+0.Ht: A trace with 7 cycles was found. [0.54 s]
+0.Ht: A trace with 7 cycles was found. [0.54 s]
+0.Ht: A trace with 7 cycles was found. [0.54 s]
+0.Ht: A trace with 7 cycles was found. [0.54 s]
+0.Ht: A trace with 7 cycles was found. [0.54 s]
+0.Ht: A trace with 7 cycles was found. [0.54 s]
+0.Ht: A trace with 7 cycles was found. [0.54 s]
+0.Ht: A trace with 7 cycles was found. [0.54 s]
+0.Ht: A trace with 7 cycles was found. [0.54 s]
+0.Ht: A trace with 7 cycles was found. [0.54 s]
+0.Ht: A trace with 7 cycles was found. [0.54 s]
+0.Ht: A trace with 7 cycles was found. [0.54 s]
+0.Ht: A trace with 7 cycles was found. [0.54 s]
+0.Ht: A trace with 7 cycles was found. [0.54 s]
+0.Ht: A trace with 7 cycles was found. [0.54 s]
+0.Ht: A trace with 7 cycles was found. [0.54 s]
+0.Ht: A trace with 7 cycles was found. [0.54 s]
+0.Ht: A trace with 7 cycles was found. [0.54 s]
+0.Ht: A trace with 7 cycles was found. [0.54 s]
+0.Ht: A trace with 7 cycles was found. [0.54 s]
+INFO (IPF047): 0.Ht: The cover property "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_W_COND_MEM_WB_REG:precondition1" was covered in 7 cycles in 0.56 s.
+INFO (IPF047): 0.Ht: The cover property "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_W_COND_MACL_WB_REG:precondition1" was covered in 7 cycles in 0.56 s by the incidental trace "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_W_COND_MEM_WB_REG:precondition1".
+INFO (IPF047): 0.Ht: The cover property "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_W_COND_MACH_WB_REG:precondition1" was covered in 7 cycles in 0.56 s by the incidental trace "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_W_COND_MEM_WB_REG:precondition1".
+INFO (IPF047): 0.Ht: The cover property "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_W_COND_sr:precondition1" was covered in 7 cycles in 0.56 s by the incidental trace "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_W_COND_MEM_WB_REG:precondition1".
+INFO (IPF047): 0.Ht: The cover property "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_W_COND_gbr:precondition1" was covered in 7 cycles in 0.56 s by the incidental trace "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_W_COND_MEM_WB_REG:precondition1".
+INFO (IPF047): 0.Ht: The cover property "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_W_COND_vbr:precondition1" was covered in 7 cycles in 0.56 s by the incidental trace "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_W_COND_MEM_WB_REG:precondition1".
+INFO (IPF047): 0.Ht: The cover property "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_W_COND_pr:precondition1" was covered in 7 cycles in 0.56 s by the incidental trace "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_W_COND_MEM_WB_REG:precondition1".
+INFO (IPF047): 0.Ht: The cover property "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_W_COND_pc:precondition1" was covered in 7 cycles in 0.56 s by the incidental trace "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_W_COND_MEM_WB_REG:precondition1".
+INFO (IPF047): 0.Ht: The cover property "S2QED_top.S2QED_BIND.[0].ast_S2QED_SAME_VAL_W_COND_reg_diff_x:precondition1" was covered in 7 cycles in 0.56 s by the incidental trace "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_W_COND_MEM_WB_REG:precondition1".
+INFO (IPF047): 0.Ht: The cover property "S2QED_top.S2QED_BIND.[0].ast_S2QED_SAME_VAL_W_COND_reg_diff_z:precondition1" was covered in 7 cycles in 0.56 s by the incidental trace "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_W_COND_MEM_WB_REG:precondition1".
+INFO (IPF047): 0.Ht: The cover property "S2QED_top.S2QED_BIND.[1].ast_S2QED_SAME_VAL_W_COND_reg_diff_x:precondition1" was covered in 7 cycles in 0.56 s by the incidental trace "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_W_COND_MEM_WB_REG:precondition1".
+INFO (IPF047): 0.Ht: The cover property "S2QED_top.S2QED_BIND.[1].ast_S2QED_SAME_VAL_W_COND_reg_diff_z:precondition1" was covered in 7 cycles in 0.56 s by the incidental trace "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_W_COND_MEM_WB_REG:precondition1".
+INFO (IPF047): 0.Ht: The cover property "S2QED_top.S2QED_BIND.[2].ast_S2QED_SAME_VAL_W_COND_reg_diff_x:precondition1" was covered in 7 cycles in 0.56 s by the incidental trace "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_W_COND_MEM_WB_REG:precondition1".
+INFO (IPF047): 0.Ht: The cover property "S2QED_top.S2QED_BIND.[2].ast_S2QED_SAME_VAL_W_COND_reg_diff_z:precondition1" was covered in 7 cycles in 0.56 s by the incidental trace "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_W_COND_MEM_WB_REG:precondition1".
+INFO (IPF047): 0.Ht: The cover property "S2QED_top.S2QED_BIND.[3].ast_S2QED_SAME_VAL_W_COND_reg_diff_x:precondition1" was covered in 7 cycles in 0.56 s by the incidental trace "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_W_COND_MEM_WB_REG:precondition1".
+INFO (IPF047): 0.Ht: The cover property "S2QED_top.S2QED_BIND.[3].ast_S2QED_SAME_VAL_W_COND_reg_diff_z:precondition1" was covered in 7 cycles in 0.56 s by the incidental trace "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_W_COND_MEM_WB_REG:precondition1".
+INFO (IPF047): 0.Ht: The cover property "S2QED_top.S2QED_BIND.[4].ast_S2QED_SAME_VAL_W_COND_reg_diff_x:precondition1" was covered in 7 cycles in 0.56 s by the incidental trace "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_W_COND_MEM_WB_REG:precondition1".
+INFO (IPF047): 0.Ht: The cover property "S2QED_top.S2QED_BIND.[4].ast_S2QED_SAME_VAL_W_COND_reg_diff_z:precondition1" was covered in 7 cycles in 0.56 s by the incidental trace "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_W_COND_MEM_WB_REG:precondition1".
+INFO (IPF047): 0.Ht: The cover property "S2QED_top.S2QED_BIND.[5].ast_S2QED_SAME_VAL_W_COND_reg_diff_x:precondition1" was covered in 7 cycles in 0.56 s by the incidental trace "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_W_COND_MEM_WB_REG:precondition1".
+INFO (IPF047): 0.Ht: The cover property "S2QED_top.S2QED_BIND.[5].ast_S2QED_SAME_VAL_W_COND_reg_diff_z:precondition1" was covered in 7 cycles in 0.56 s by the incidental trace "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_W_COND_MEM_WB_REG:precondition1".
+INFO (IPF047): 0.Ht: The cover property "S2QED_top.S2QED_BIND.[6].ast_S2QED_SAME_VAL_W_COND_reg_diff_x:precondition1" was covered in 7 cycles in 0.56 s by the incidental trace "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_W_COND_MEM_WB_REG:precondition1".
+INFO (IPF047): 0.Ht: The cover property "S2QED_top.S2QED_BIND.[6].ast_S2QED_SAME_VAL_W_COND_reg_diff_z:precondition1" was covered in 7 cycles in 0.56 s by the incidental trace "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_W_COND_MEM_WB_REG:precondition1".
+INFO (IPF047): 0.Ht: The cover property "S2QED_top.S2QED_BIND.[7].ast_S2QED_SAME_VAL_W_COND_reg_diff_x:precondition1" was covered in 7 cycles in 0.56 s by the incidental trace "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_W_COND_MEM_WB_REG:precondition1".
+INFO (IPF047): 0.Ht: The cover property "S2QED_top.S2QED_BIND.[7].ast_S2QED_SAME_VAL_W_COND_reg_diff_z:precondition1" was covered in 7 cycles in 0.56 s by the incidental trace "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_W_COND_MEM_WB_REG:precondition1".
+INFO (IPF047): 0.Ht: The cover property "S2QED_top.S2QED_BIND.[8].ast_S2QED_SAME_VAL_W_COND_reg_diff_x:precondition1" was covered in 7 cycles in 0.56 s by the incidental trace "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_W_COND_MEM_WB_REG:precondition1".
+INFO (IPF047): 0.Ht: The cover property "S2QED_top.S2QED_BIND.[8].ast_S2QED_SAME_VAL_W_COND_reg_diff_z:precondition1" was covered in 7 cycles in 0.56 s by the incidental trace "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_W_COND_MEM_WB_REG:precondition1".
+INFO (IPF047): 0.Ht: The cover property "S2QED_top.S2QED_BIND.[9].ast_S2QED_SAME_VAL_W_COND_reg_diff_x:precondition1" was covered in 7 cycles in 0.56 s by the incidental trace "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_W_COND_MEM_WB_REG:precondition1".
+INFO (IPF047): 0.Ht: The cover property "S2QED_top.S2QED_BIND.[9].ast_S2QED_SAME_VAL_W_COND_reg_diff_z:precondition1" was covered in 7 cycles in 0.56 s by the incidental trace "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_W_COND_MEM_WB_REG:precondition1".
+INFO (IPF047): 0.Ht: The cover property "S2QED_top.S2QED_BIND.[10].ast_S2QED_SAME_VAL_W_COND_reg_diff_x:precondition1" was covered in 7 cycles in 0.56 s by the incidental trace "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_W_COND_MEM_WB_REG:precondition1".
+INFO (IPF047): 0.Ht: The cover property "S2QED_top.S2QED_BIND.[10].ast_S2QED_SAME_VAL_W_COND_reg_diff_z:precondition1" was covered in 7 cycles in 0.56 s by the incidental trace "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_W_COND_MEM_WB_REG:precondition1".
+INFO (IPF047): 0.Ht: The cover property "S2QED_top.S2QED_BIND.[11].ast_S2QED_SAME_VAL_W_COND_reg_diff_x:precondition1" was covered in 7 cycles in 0.56 s by the incidental trace "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_W_COND_MEM_WB_REG:precondition1".
+INFO (IPF047): 0.Ht: The cover property "S2QED_top.S2QED_BIND.[11].ast_S2QED_SAME_VAL_W_COND_reg_diff_z:precondition1" was covered in 7 cycles in 0.56 s by the incidental trace "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_W_COND_MEM_WB_REG:precondition1".
+INFO (IPF047): 0.Ht: The cover property "S2QED_top.S2QED_BIND.[12].ast_S2QED_SAME_VAL_W_COND_reg_diff_x:precondition1" was covered in 7 cycles in 0.56 s by the incidental trace "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_W_COND_MEM_WB_REG:precondition1".
+INFO (IPF047): 0.Ht: The cover property "S2QED_top.S2QED_BIND.[12].ast_S2QED_SAME_VAL_W_COND_reg_diff_z:precondition1" was covered in 7 cycles in 0.56 s by the incidental trace "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_W_COND_MEM_WB_REG:precondition1".
+INFO (IPF047): 0.Ht: The cover property "S2QED_top.S2QED_BIND.[13].ast_S2QED_SAME_VAL_W_COND_reg_diff_x:precondition1" was covered in 7 cycles in 0.56 s by the incidental trace "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_W_COND_MEM_WB_REG:precondition1".
+INFO (IPF047): 0.Ht: The cover property "S2QED_top.S2QED_BIND.[13].ast_S2QED_SAME_VAL_W_COND_reg_diff_z:precondition1" was covered in 7 cycles in 0.56 s by the incidental trace "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_W_COND_MEM_WB_REG:precondition1".
+INFO (IPF047): 0.Ht: The cover property "S2QED_top.S2QED_BIND.[14].ast_S2QED_SAME_VAL_W_COND_reg_diff_x:precondition1" was covered in 7 cycles in 0.56 s by the incidental trace "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_W_COND_MEM_WB_REG:precondition1".
+INFO (IPF047): 0.Ht: The cover property "S2QED_top.S2QED_BIND.[14].ast_S2QED_SAME_VAL_W_COND_reg_diff_z:precondition1" was covered in 7 cycles in 0.56 s by the incidental trace "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_W_COND_MEM_WB_REG:precondition1".
+INFO (IPF047): 0.Ht: The cover property "S2QED_top.S2QED_BIND.[15].ast_S2QED_SAME_VAL_W_COND_reg_diff_x:precondition1" was covered in 7 cycles in 0.56 s by the incidental trace "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_W_COND_MEM_WB_REG:precondition1".
+INFO (IPF047): 0.Ht: The cover property "S2QED_top.S2QED_BIND.[15].ast_S2QED_SAME_VAL_W_COND_reg_diff_z:precondition1" was covered in 7 cycles in 0.56 s by the incidental trace "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_W_COND_MEM_WB_REG:precondition1".
+INFO (IPF047): 0.Ht: The cover property "S2QED_top.S2QED_BIND.ast_S2QED_SAME_VAL_W_COND_mach_diff_x:precondition1" was covered in 7 cycles in 0.56 s by the incidental trace "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_W_COND_MEM_WB_REG:precondition1".
+INFO (IPF047): 0.Ht: The cover property "S2QED_top.S2QED_BIND.ast_S2QED_SAME_VAL_W_COND_macl_diff_x:precondition1" was covered in 7 cycles in 0.56 s by the incidental trace "S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_W_COND_MEM_WB_REG:precondition1".
+0.B: Trace Attempt  1	[0.09 s]
+0.N: Trace Attempt  3	[0.20 s]
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.[0].ast_S2QED_SAME_VAL_W_COND_reg_diff_x"	[0.00 s].
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.[0].ast_S2QED_SAME_VAL_W_COND_reg_diff_z"	[0.00 s].
+0.B: Starting proof for property "S2QED_top.S2QED_BIND.[0].ast_S2QED_SAME_VAL_W_COND_reg_diff_x"	[0.00 s].
+0.B: Starting proof for property "S2QED_top.S2QED_BIND.[0].ast_S2QED_SAME_VAL_W_COND_reg_diff_z"	[0.00 s].
+0.N: Trace Attempt  1	[0.02 s]
+0.N: Trace Attempt  1	[0.02 s]
+0.N: Trace Attempt  2	[0.02 s]
+0.N: Trace Attempt  3	[0.02 s]
+0.B: Trace Attempt  1	[0.06 s]
+0.N: Trace Attempt  3	[0.13 s]
+0.N: Trace Attempt  3	[0.17 s]
+0.B: Trace Attempt  2	[0.18 s]
+0.B: Trace Attempt  3	[0.31 s]
+ProofGrid usable level: 18
+0.N: Trace Attempt  4	[0.33 s]
+0.N: Trace Attempt  3	[0.40 s]
+0.N: Trace Attempt  5	[0.42 s]
+0.B: Trace Attempt  4	[0.45 s]
+0.B: Trace Attempt  5	[0.60 s]
+0.N: Trace Attempt  7	[0.72 s]
+0.N: Per property time limit expired (1.00 s) [1.07 s]
+0.N: Per property time limit expired (1.00 s) [1.07 s]
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.[1].ast_S2QED_SAME_VAL_W_COND_reg_diff_x"	[0.00 s].
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.[1].ast_S2QED_SAME_VAL_W_COND_reg_diff_z"	[0.00 s].
+0.N: Trace Attempt  1	[0.02 s]
+0.N: Trace Attempt  1	[0.02 s]
+0.N: Trace Attempt  2	[0.02 s]
+0.N: Trace Attempt  3	[0.02 s]
+0.N: Trace Attempt  3	[0.13 s]
+0.N: Trace Attempt  3	[0.18 s]
+0.B: Starting proof for property "S2QED_top.S2QED_BIND.[1].ast_S2QED_SAME_VAL_W_COND_reg_diff_x"	[0.00 s].
+0.B: Starting proof for property "S2QED_top.S2QED_BIND.[1].ast_S2QED_SAME_VAL_W_COND_reg_diff_z"	[0.00 s].
+0.B: Trace Attempt  1	[0.06 s]
+0.N: Trace Attempt  4	[0.34 s]
+0.Ht: Trace Attempt  9	[0.80 s]
+0.Ht: A trace with 9 cycles was found. [2.12 s]
+0.Ht: A trace with 9 cycles was found. [2.12 s]
+INFO (IPF055): 0.Ht: A counterexample (cex) with 9 cycles was found for the property "S2QED_top.S2QED_BIND.[0].ast_S2QED_SAME_VAL_W_COND_reg_diff_x" in 2.13 s.
+INFO (IPF055): 0.Ht: A counterexample (cex) with 9 cycles was found for the property "S2QED_top.S2QED_BIND.[0].ast_S2QED_SAME_VAL_W_COND_reg_diff_z" in 2.13 s by the incidental trace "S2QED_top.S2QED_BIND.[0].ast_S2QED_SAME_VAL_W_COND_reg_diff_x".
+0.N: Trace Attempt  3	[0.41 s]
+0.B: Trace Attempt  2	[0.19 s]
+0.N: Trace Attempt  5	[0.43 s]
+0.B: Trace Attempt  3	[0.32 s]
+0.Ht: A trace with 9 cycles was found. [2.36 s]
+0.Ht: A trace with 9 cycles was found. [2.36 s]
+INFO (IPF055): 0.Ht: A counterexample (cex) with 9 cycles was found for the property "S2QED_top.S2QED_BIND.[1].ast_S2QED_SAME_VAL_W_COND_reg_diff_x" in 2.38 s.
+INFO (IPF055): 0.Ht: A counterexample (cex) with 9 cycles was found for the property "S2QED_top.S2QED_BIND.[1].ast_S2QED_SAME_VAL_W_COND_reg_diff_z" in 2.38 s by the incidental trace "S2QED_top.S2QED_BIND.[1].ast_S2QED_SAME_VAL_W_COND_reg_diff_x".
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.[2].ast_S2QED_SAME_VAL_W_COND_reg_diff_x"	[0.00 s].
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.[2].ast_S2QED_SAME_VAL_W_COND_reg_diff_z"	[0.00 s].
+0.B: Starting proof for property "S2QED_top.S2QED_BIND.[2].ast_S2QED_SAME_VAL_W_COND_reg_diff_x"	[0.00 s].
+0.B: Starting proof for property "S2QED_top.S2QED_BIND.[2].ast_S2QED_SAME_VAL_W_COND_reg_diff_z"	[0.00 s].
+0.N: Trace Attempt  1	[0.02 s]
+0.N: Trace Attempt  1	[0.02 s]
+0.N: Trace Attempt  2	[0.02 s]
+0.N: Trace Attempt  3	[0.02 s]
+0.B: Trace Attempt  1	[0.06 s]
+0.N: Trace Attempt  3	[0.13 s]
+0.N: Trace Attempt  3	[0.17 s]
+0.B: Trace Attempt  2	[0.19 s]
+0.Ht: A trace with 9 cycles was found. [2.65 s]
+0.Ht: A trace with 9 cycles was found. [2.65 s]
+INFO (IPF055): 0.Ht: A counterexample (cex) with 9 cycles was found for the property "S2QED_top.S2QED_BIND.[2].ast_S2QED_SAME_VAL_W_COND_reg_diff_x" in 2.67 s.
+INFO (IPF055): 0.Ht: A counterexample (cex) with 9 cycles was found for the property "S2QED_top.S2QED_BIND.[2].ast_S2QED_SAME_VAL_W_COND_reg_diff_z" in 2.67 s by the incidental trace "S2QED_top.S2QED_BIND.[2].ast_S2QED_SAME_VAL_W_COND_reg_diff_x".
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.[3].ast_S2QED_SAME_VAL_W_COND_reg_diff_x"	[0.00 s].
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.[3].ast_S2QED_SAME_VAL_W_COND_reg_diff_z"	[0.00 s].
+0.N: Trace Attempt  1	[0.02 s]
+0.B: Starting proof for property "S2QED_top.S2QED_BIND.[3].ast_S2QED_SAME_VAL_W_COND_reg_diff_x"	[0.00 s].
+0.B: Starting proof for property "S2QED_top.S2QED_BIND.[3].ast_S2QED_SAME_VAL_W_COND_reg_diff_z"	[0.00 s].
+0.N: Trace Attempt  1	[0.02 s]
+0.N: Trace Attempt  2	[0.02 s]
+0.N: Trace Attempt  3	[0.02 s]
+0.B: Trace Attempt  1	[0.06 s]
+0.N: Trace Attempt  3	[0.12 s]
+0.Ht: A trace with 9 cycles was found. [2.88 s]
+0.Ht: A trace with 9 cycles was found. [2.88 s]
+INFO (IPF055): 0.Ht: A counterexample (cex) with 9 cycles was found for the property "S2QED_top.S2QED_BIND.[3].ast_S2QED_SAME_VAL_W_COND_reg_diff_x" in 2.90 s.
+INFO (IPF055): 0.Ht: A counterexample (cex) with 9 cycles was found for the property "S2QED_top.S2QED_BIND.[3].ast_S2QED_SAME_VAL_W_COND_reg_diff_z" in 2.90 s by the incidental trace "S2QED_top.S2QED_BIND.[3].ast_S2QED_SAME_VAL_W_COND_reg_diff_x".
+0.N: Trace Attempt  3	[0.17 s]
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.[4].ast_S2QED_SAME_VAL_W_COND_reg_diff_x"	[0.00 s].
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.[4].ast_S2QED_SAME_VAL_W_COND_reg_diff_z"	[0.00 s].
+0.N: Trace Attempt  1	[0.02 s]
+0.N: Trace Attempt  1	[0.02 s]
+0.N: Trace Attempt  2	[0.02 s]
+0.B: Trace Attempt  2	[0.19 s]
+0.N: Trace Attempt  3	[0.02 s]
+0.N: Trace Attempt  3	[0.17 s]
+ProofGrid usable level: 14
+0.B: Starting proof for property "S2QED_top.S2QED_BIND.[4].ast_S2QED_SAME_VAL_W_COND_reg_diff_x"	[0.00 s].
+0.B: Starting proof for property "S2QED_top.S2QED_BIND.[4].ast_S2QED_SAME_VAL_W_COND_reg_diff_z"	[0.00 s].
+0.N: Trace Attempt  3	[0.23 s]
+0.B: Trace Attempt  1	[0.06 s]
+0.B: Trace Attempt  2	[0.18 s]
+0.N: Trace Attempt  4	[0.42 s]
+0.Ht: A trace with 9 cycles was found. [3.31 s]
+0.Ht: A trace with 9 cycles was found. [3.31 s]
+INFO (IPF055): 0.Ht: A counterexample (cex) with 9 cycles was found for the property "S2QED_top.S2QED_BIND.[4].ast_S2QED_SAME_VAL_W_COND_reg_diff_x" in 3.34 s.
+INFO (IPF055): 0.Ht: A counterexample (cex) with 9 cycles was found for the property "S2QED_top.S2QED_BIND.[4].ast_S2QED_SAME_VAL_W_COND_reg_diff_z" in 3.34 s by the incidental trace "S2QED_top.S2QED_BIND.[4].ast_S2QED_SAME_VAL_W_COND_reg_diff_x".
+0.B: Starting proof for property "S2QED_top.S2QED_BIND.[5].ast_S2QED_SAME_VAL_W_COND_reg_diff_x"	[0.00 s].
+0.B: Starting proof for property "S2QED_top.S2QED_BIND.[5].ast_S2QED_SAME_VAL_W_COND_reg_diff_z"	[0.00 s].
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.[5].ast_S2QED_SAME_VAL_W_COND_reg_diff_x"	[0.00 s].
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.[5].ast_S2QED_SAME_VAL_W_COND_reg_diff_z"	[0.00 s].
+0.N: Trace Attempt  1	[0.02 s]
+0.N: Trace Attempt  1	[0.02 s]
+0.N: Trace Attempt  2	[0.02 s]
+0.N: Trace Attempt  3	[0.02 s]
+0.B: Trace Attempt  1	[0.06 s]
+0.N: Trace Attempt  3	[0.13 s]
+0.B: Trace Attempt  2	[0.19 s]
+0.N: Trace Attempt  3	[0.17 s]
+0.Ht: A trace with 9 cycles was found. [3.63 s]
+0.Ht: A trace with 9 cycles was found. [3.63 s]
+INFO (IPF055): 0.Ht: A counterexample (cex) with 9 cycles was found for the property "S2QED_top.S2QED_BIND.[5].ast_S2QED_SAME_VAL_W_COND_reg_diff_x" in 3.66 s.
+INFO (IPF055): 0.Ht: A counterexample (cex) with 9 cycles was found for the property "S2QED_top.S2QED_BIND.[5].ast_S2QED_SAME_VAL_W_COND_reg_diff_z" in 3.66 s by the incidental trace "S2QED_top.S2QED_BIND.[5].ast_S2QED_SAME_VAL_W_COND_reg_diff_x".
+0.B: Starting proof for property "S2QED_top.S2QED_BIND.[6].ast_S2QED_SAME_VAL_W_COND_reg_diff_x"	[0.00 s].
+0.B: Starting proof for property "S2QED_top.S2QED_BIND.[6].ast_S2QED_SAME_VAL_W_COND_reg_diff_z"	[0.00 s].
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.[6].ast_S2QED_SAME_VAL_W_COND_reg_diff_x"	[0.00 s].
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.[6].ast_S2QED_SAME_VAL_W_COND_reg_diff_z"	[0.00 s].
+0.N: Trace Attempt  1	[0.02 s]
+0.N: Trace Attempt  1	[0.03 s]
+0.N: Trace Attempt  2	[0.03 s]
+0.N: Trace Attempt  3	[0.03 s]
+0.B: Trace Attempt  1	[0.06 s]
+0.N: Trace Attempt  3	[0.13 s]
+0.N: Trace Attempt  3	[0.17 s]
+0.B: Trace Attempt  2	[0.18 s]
+0.Ht: A trace with 9 cycles was found. [3.94 s]
+0.Ht: A trace with 9 cycles was found. [3.94 s]
+INFO (IPF055): 0.Ht: A counterexample (cex) with 9 cycles was found for the property "S2QED_top.S2QED_BIND.[6].ast_S2QED_SAME_VAL_W_COND_reg_diff_x" in 3.97 s.
+INFO (IPF055): 0.Ht: A counterexample (cex) with 9 cycles was found for the property "S2QED_top.S2QED_BIND.[6].ast_S2QED_SAME_VAL_W_COND_reg_diff_z" in 3.97 s by the incidental trace "S2QED_top.S2QED_BIND.[6].ast_S2QED_SAME_VAL_W_COND_reg_diff_x".
+0.B: Trace Attempt  3	[0.31 s]
+0.N: Trace Attempt  4	[0.34 s]
+ProofGrid usable level: 11
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.[7].ast_S2QED_SAME_VAL_W_COND_reg_diff_x"	[0.00 s].
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.[7].ast_S2QED_SAME_VAL_W_COND_reg_diff_z"	[0.00 s].
+0.B: Starting proof for property "S2QED_top.S2QED_BIND.[7].ast_S2QED_SAME_VAL_W_COND_reg_diff_x"	[0.00 s].
+0.B: Starting proof for property "S2QED_top.S2QED_BIND.[7].ast_S2QED_SAME_VAL_W_COND_reg_diff_z"	[0.00 s].
+0.N: Trace Attempt  1	[0.02 s]
+0.N: Trace Attempt  1	[0.02 s]
+0.N: Trace Attempt  2	[0.02 s]
+0.N: Trace Attempt  3	[0.02 s]
+0.B: Trace Attempt  1	[0.06 s]
+0.N: Trace Attempt  3	[0.12 s]
+0.N: Trace Attempt  3	[0.17 s]
+0.B: Trace Attempt  2	[0.17 s]
+0.Ht: A trace with 9 cycles was found. [4.37 s]
+0.Ht: A trace with 9 cycles was found. [4.37 s]
+INFO (IPF055): 0.Ht: A counterexample (cex) with 9 cycles was found for the property "S2QED_top.S2QED_BIND.[7].ast_S2QED_SAME_VAL_W_COND_reg_diff_x" in 4.40 s.
+INFO (IPF055): 0.Ht: A counterexample (cex) with 9 cycles was found for the property "S2QED_top.S2QED_BIND.[7].ast_S2QED_SAME_VAL_W_COND_reg_diff_z" in 4.40 s by the incidental trace "S2QED_top.S2QED_BIND.[7].ast_S2QED_SAME_VAL_W_COND_reg_diff_x".
+0.B: Trace Attempt  3	[0.30 s]
+0.N: Trace Attempt  4	[0.32 s]
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.[8].ast_S2QED_SAME_VAL_W_COND_reg_diff_x"	[0.00 s].
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.[8].ast_S2QED_SAME_VAL_W_COND_reg_diff_z"	[0.00 s].
+0.N: Trace Attempt  1	[0.02 s]
+0.N: Trace Attempt  1	[0.02 s]
+0.N: Trace Attempt  2	[0.02 s]
+0.N: Trace Attempt  3	[0.02 s]
+0.B: Starting proof for property "S2QED_top.S2QED_BIND.[8].ast_S2QED_SAME_VAL_W_COND_reg_diff_x"	[0.00 s].
+0.B: Starting proof for property "S2QED_top.S2QED_BIND.[8].ast_S2QED_SAME_VAL_W_COND_reg_diff_z"	[0.00 s].
+0.B: Trace Attempt  1	[0.05 s]
+0.N: Trace Attempt  3	[0.13 s]
+0.N: Trace Attempt  3	[0.17 s]
+0.B: Trace Attempt  2	[0.17 s]
+0.N: Trace Attempt  4	[0.33 s]
+0.Ht: A trace with 9 cycles was found. [4.79 s]
+0.Ht: A trace with 9 cycles was found. [4.79 s]
+INFO (IPF055): 0.Ht: A counterexample (cex) with 9 cycles was found for the property "S2QED_top.S2QED_BIND.[8].ast_S2QED_SAME_VAL_W_COND_reg_diff_x" in 4.81 s.
+INFO (IPF055): 0.Ht: A counterexample (cex) with 9 cycles was found for the property "S2QED_top.S2QED_BIND.[8].ast_S2QED_SAME_VAL_W_COND_reg_diff_z" in 4.81 s by the incidental trace "S2QED_top.S2QED_BIND.[8].ast_S2QED_SAME_VAL_W_COND_reg_diff_x".
+0.B: Trace Attempt  3	[0.30 s]
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.[9].ast_S2QED_SAME_VAL_W_COND_reg_diff_x"	[0.00 s].
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.[9].ast_S2QED_SAME_VAL_W_COND_reg_diff_z"	[0.00 s].
+0.N: Trace Attempt  1	[0.02 s]
+0.N: Trace Attempt  1	[0.02 s]
+0.N: Trace Attempt  2	[0.02 s]
+0.N: Trace Attempt  3	[0.02 s]
+0.B: Starting proof for property "S2QED_top.S2QED_BIND.[9].ast_S2QED_SAME_VAL_W_COND_reg_diff_x"	[0.00 s].
+0.B: Starting proof for property "S2QED_top.S2QED_BIND.[9].ast_S2QED_SAME_VAL_W_COND_reg_diff_z"	[0.00 s].
+0.B: Trace Attempt  1	[0.06 s]
+0.N: Trace Attempt  3	[0.13 s]
+0.Ht: A trace with 9 cycles was found. [4.97 s]
+0.Ht: A trace with 9 cycles was found. [4.97 s]
+INFO (IPF055): 0.Ht: A counterexample (cex) with 9 cycles was found for the property "S2QED_top.S2QED_BIND.[9].ast_S2QED_SAME_VAL_W_COND_reg_diff_x" in 5.01 s.
+INFO (IPF055): 0.Ht: A counterexample (cex) with 9 cycles was found for the property "S2QED_top.S2QED_BIND.[9].ast_S2QED_SAME_VAL_W_COND_reg_diff_z" in 5.01 s by the incidental trace "S2QED_top.S2QED_BIND.[9].ast_S2QED_SAME_VAL_W_COND_reg_diff_x".
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.[10].ast_S2QED_SAME_VAL_W_COND_reg_diff_x"	[0.00 s].
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.[10].ast_S2QED_SAME_VAL_W_COND_reg_diff_z"	[0.00 s].
+0.N: Trace Attempt  1	[0.02 s]
+0.N: Trace Attempt  1	[0.02 s]
+0.N: Trace Attempt  2	[0.02 s]
+0.N: Trace Attempt  3	[0.02 s]
+0.B: Starting proof for property "S2QED_top.S2QED_BIND.[10].ast_S2QED_SAME_VAL_W_COND_reg_diff_x"	[0.00 s].
+0.B: Starting proof for property "S2QED_top.S2QED_BIND.[10].ast_S2QED_SAME_VAL_W_COND_reg_diff_z"	[0.00 s].
+0.B: Trace Attempt  1	[0.05 s]
+ProofGrid usable level: 8
+0.N: Trace Attempt  3	[0.12 s]
+0.N: Trace Attempt  3	[0.17 s]
+0.B: Trace Attempt  2	[0.17 s]
+0.N: Trace Attempt  4	[0.32 s]
+0.B: Trace Attempt  3	[0.30 s]
+0.N: Trace Attempt  3	[0.38 s]
+0.Ht: A trace with 9 cycles was found. [5.41 s]
+0.Ht: A trace with 9 cycles was found. [5.41 s]
+INFO (IPF055): 0.Ht: A counterexample (cex) with 9 cycles was found for the property "S2QED_top.S2QED_BIND.[10].ast_S2QED_SAME_VAL_W_COND_reg_diff_x" in 5.44 s.
+INFO (IPF055): 0.Ht: A counterexample (cex) with 9 cycles was found for the property "S2QED_top.S2QED_BIND.[10].ast_S2QED_SAME_VAL_W_COND_reg_diff_z" in 5.44 s by the incidental trace "S2QED_top.S2QED_BIND.[10].ast_S2QED_SAME_VAL_W_COND_reg_diff_x".
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.[11].ast_S2QED_SAME_VAL_W_COND_reg_diff_x"	[0.00 s].
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.[11].ast_S2QED_SAME_VAL_W_COND_reg_diff_z"	[0.00 s].
+0.N: Trace Attempt  1	[0.02 s]
+0.N: Trace Attempt  1	[0.02 s]
+0.N: Trace Attempt  2	[0.02 s]
+0.N: Trace Attempt  3	[0.02 s]
+0.B: Starting proof for property "S2QED_top.S2QED_BIND.[11].ast_S2QED_SAME_VAL_W_COND_reg_diff_x"	[0.00 s].
+0.B: Starting proof for property "S2QED_top.S2QED_BIND.[11].ast_S2QED_SAME_VAL_W_COND_reg_diff_z"	[0.00 s].
+0.B: Trace Attempt  1	[0.06 s]
+0.N: Trace Attempt  3	[0.13 s]
+0.N: Trace Attempt  3	[0.17 s]
+0.B: Trace Attempt  2	[0.18 s]
+0.Ht: A trace with 9 cycles was found. [5.71 s]
+0.Ht: A trace with 9 cycles was found. [5.71 s]
+INFO (IPF055): 0.Ht: A counterexample (cex) with 9 cycles was found for the property "S2QED_top.S2QED_BIND.[11].ast_S2QED_SAME_VAL_W_COND_reg_diff_x" in 5.73 s.
+INFO (IPF055): 0.Ht: A counterexample (cex) with 9 cycles was found for the property "S2QED_top.S2QED_BIND.[11].ast_S2QED_SAME_VAL_W_COND_reg_diff_z" in 5.73 s by the incidental trace "S2QED_top.S2QED_BIND.[11].ast_S2QED_SAME_VAL_W_COND_reg_diff_x".
+0.N: Trace Attempt  4	[0.33 s]
+0.B: Starting proof for property "S2QED_top.S2QED_BIND.[12].ast_S2QED_SAME_VAL_W_COND_reg_diff_x"	[0.00 s].
+0.B: Starting proof for property "S2QED_top.S2QED_BIND.[12].ast_S2QED_SAME_VAL_W_COND_reg_diff_z"	[0.00 s].
+0.B: Trace Attempt  1	[0.06 s]
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.[12].ast_S2QED_SAME_VAL_W_COND_reg_diff_x"	[0.00 s].
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.[12].ast_S2QED_SAME_VAL_W_COND_reg_diff_z"	[0.00 s].
+0.N: Trace Attempt  1	[0.02 s]
+0.N: Trace Attempt  1	[0.02 s]
+0.N: Trace Attempt  2	[0.02 s]
+0.N: Trace Attempt  3	[0.02 s]
+0.B: Trace Attempt  2	[0.17 s]
+0.N: Trace Attempt  3	[0.13 s]
+0.N: Trace Attempt  3	[0.17 s]
+0.B: Trace Attempt  3	[0.30 s]
+ProofGrid usable level: 6
+0.N: Trace Attempt  4	[0.33 s]
+0.B: Trace Attempt  4	[0.43 s]
+0.N: Trace Attempt  3	[0.39 s]
+0.N: Trace Attempt  5	[0.41 s]
+0.Ht: A trace with 9 cycles was found. [6.27 s]
+0.Ht: A trace with 9 cycles was found. [6.27 s]
+INFO (IPF055): 0.Ht: A counterexample (cex) with 9 cycles was found for the property "S2QED_top.S2QED_BIND.[12].ast_S2QED_SAME_VAL_W_COND_reg_diff_x" in 6.30 s.
+INFO (IPF055): 0.Ht: A counterexample (cex) with 9 cycles was found for the property "S2QED_top.S2QED_BIND.[12].ast_S2QED_SAME_VAL_W_COND_reg_diff_z" in 6.30 s by the incidental trace "S2QED_top.S2QED_BIND.[12].ast_S2QED_SAME_VAL_W_COND_reg_diff_x".
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.[13].ast_S2QED_SAME_VAL_W_COND_reg_diff_x"	[0.00 s].
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.[13].ast_S2QED_SAME_VAL_W_COND_reg_diff_z"	[0.00 s].
+0.N: Trace Attempt  1	[0.02 s]
+0.B: Starting proof for property "S2QED_top.S2QED_BIND.[13].ast_S2QED_SAME_VAL_W_COND_reg_diff_x"	[0.00 s].
+0.B: Starting proof for property "S2QED_top.S2QED_BIND.[13].ast_S2QED_SAME_VAL_W_COND_reg_diff_z"	[0.00 s].
+0.N: Trace Attempt  1	[0.02 s]
+0.N: Trace Attempt  2	[0.02 s]
+0.N: Trace Attempt  3	[0.02 s]
+0.B: Trace Attempt  1	[0.05 s]
+0.N: Trace Attempt  3	[0.12 s]
+0.N: Trace Attempt  3	[0.17 s]
+0.B: Trace Attempt  2	[0.17 s]
+0.Ht: A trace with 9 cycles was found. [6.54 s]
+0.Ht: A trace with 9 cycles was found. [6.54 s]
+INFO (IPF055): 0.Ht: A counterexample (cex) with 9 cycles was found for the property "S2QED_top.S2QED_BIND.[13].ast_S2QED_SAME_VAL_W_COND_reg_diff_x" in 6.57 s.
+INFO (IPF055): 0.Ht: A counterexample (cex) with 9 cycles was found for the property "S2QED_top.S2QED_BIND.[13].ast_S2QED_SAME_VAL_W_COND_reg_diff_z" in 6.57 s by the incidental trace "S2QED_top.S2QED_BIND.[13].ast_S2QED_SAME_VAL_W_COND_reg_diff_x".
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.[14].ast_S2QED_SAME_VAL_W_COND_reg_diff_x"	[0.00 s].
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.[14].ast_S2QED_SAME_VAL_W_COND_reg_diff_z"	[0.00 s].
+0.B: Starting proof for property "S2QED_top.S2QED_BIND.[14].ast_S2QED_SAME_VAL_W_COND_reg_diff_x"	[0.00 s].
+0.B: Starting proof for property "S2QED_top.S2QED_BIND.[14].ast_S2QED_SAME_VAL_W_COND_reg_diff_z"	[0.00 s].
+0.N: Trace Attempt  1	[0.02 s]
+0.N: Trace Attempt  1	[0.02 s]
+0.N: Trace Attempt  2	[0.02 s]
+0.N: Trace Attempt  3	[0.02 s]
+0.B: Trace Attempt  1	[0.06 s]
+0.N: Trace Attempt  3	[0.12 s]
+0.N: Trace Attempt  3	[0.16 s]
+0.B: Trace Attempt  2	[0.18 s]
+0.Ht: A trace with 9 cycles was found. [6.83 s]
+0.Ht: A trace with 9 cycles was found. [6.83 s]
+INFO (IPF055): 0.Ht: A counterexample (cex) with 9 cycles was found for the property "S2QED_top.S2QED_BIND.[14].ast_S2QED_SAME_VAL_W_COND_reg_diff_x" in 6.85 s.
+INFO (IPF055): 0.Ht: A counterexample (cex) with 9 cycles was found for the property "S2QED_top.S2QED_BIND.[14].ast_S2QED_SAME_VAL_W_COND_reg_diff_z" in 6.85 s by the incidental trace "S2QED_top.S2QED_BIND.[14].ast_S2QED_SAME_VAL_W_COND_reg_diff_x".
+0.B: Starting proof for property "S2QED_top.S2QED_BIND.[15].ast_S2QED_SAME_VAL_W_COND_reg_diff_x"	[0.00 s].
+0.B: Starting proof for property "S2QED_top.S2QED_BIND.[15].ast_S2QED_SAME_VAL_W_COND_reg_diff_z"	[0.00 s].
+0.N: Trace Attempt  4	[0.32 s]
+0.B: Trace Attempt  1	[0.06 s]
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.[15].ast_S2QED_SAME_VAL_W_COND_reg_diff_x"	[0.00 s].
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.[15].ast_S2QED_SAME_VAL_W_COND_reg_diff_z"	[0.00 s].
+0.N: Trace Attempt  1	[0.02 s]
+0.N: Trace Attempt  1	[0.02 s]
+0.N: Trace Attempt  2	[0.02 s]
+0.N: Trace Attempt  3	[0.02 s]
+0.Ht: A trace with 9 cycles was found. [7.04 s]
+0.Ht: A trace with 9 cycles was found. [7.04 s]
+INFO (IPF055): 0.Ht: A counterexample (cex) with 9 cycles was found for the property "S2QED_top.S2QED_BIND.[15].ast_S2QED_SAME_VAL_W_COND_reg_diff_x" in 7.05 s.
+INFO (IPF055): 0.Ht: A counterexample (cex) with 9 cycles was found for the property "S2QED_top.S2QED_BIND.[15].ast_S2QED_SAME_VAL_W_COND_reg_diff_z" in 7.05 s by the incidental trace "S2QED_top.S2QED_BIND.[15].ast_S2QED_SAME_VAL_W_COND_reg_diff_x".
+0.B: Trace Attempt  2	[0.18 s]
+0.N: Trace Attempt  3	[0.13 s]
+0.N: Starting proof for property "S2QED_top.S2QED_BIND.ast_S2QED_SAME_VAL_W_COND_mach_diff_x"	[0.00 s].
+ProofGrid usable level: 2
+0.N: Trace Attempt  1	[0.02 s]
+0.N: Trace Attempt  1	[0.02 s]
+0.N: Trace Attempt  2	[0.02 s]
+0.N: Trace Attempt  3	[0.02 s]
+0.B: Starting proof for property "S2QED_top.S2QED_BIND.ast_S2QED_SAME_VAL_W_COND_mach_diff_x"	[0.00 s].
+0.B: Trace Attempt  1	[0.06 s]
+0.N: Trace Attempt  3	[0.12 s]
+0.N: Trace Attempt  3	[0.17 s]
+0.B: Trace Attempt  2	[0.17 s]
+0.Ht: A trace with 9 cycles was found. [7.34 s]
+0.Ht: A trace with 9 cycles was found. [7.34 s]
+INFO (IPF055): 0.Ht: A counterexample (cex) with 9 cycles was found for the property "S2QED_top.S2QED_BIND.ast_S2QED_SAME_VAL_W_COND_mach_diff_x" in 7.35 s.
+INFO (IPF055): 0.Ht: A counterexample (cex) with 9 cycles was found for the property "S2QED_top.S2QED_BIND.ast_S2QED_SAME_VAL_W_COND_macl_diff_x" in 7.35 s by the incidental trace "S2QED_top.S2QED_BIND.ast_S2QED_SAME_VAL_W_COND_mach_diff_x".
+0.Ht: All properties determined. [7.29 s]
+Initiating shutdown of proof (@ 7.35 s)
+0.Ht: Exited with Success (@ 7.35 s)
+0.Hp: Interrupted (multi)
+0.Hp: Interrupted. [7.35 s]
+0.Hp: Exited with Success (@ 7.36 s)
+0.N: Interrupted. [7.36 s]
+0.N: Exited with Success (@ 7.38 s)
+0.B: Interrupted. [7.43 s]
+0.B: Exited with Success (@ 7.44 s)
+ProofGrid usable level: 0
+ProofGrid usable level: 0
+All pending notifications were processed.
+INFO (IPF059): Completed proof on task: <embedded>
+
+==============================================================
+SUMMARY
+==============================================================
+	Properties Considered : 94
+	      assertions      : 34
+	       - proven       : 0 (0%)
+	       - marked_proven: 0 (0%)
+	       - cex          : 34 (100%)
+	       - ar_cex       : 0 (0%)
+	       - undetermined : 0 (0%)
+	       - unprocessed  : 0 (0%)
+	       - error        : 0 (0%)
+	      covers          : 60
+	       - unreachable  : 0 (0%)
+	       - covered      : 60 (100%)
+	       - ar_covered   : 0 (0%)
+	       - undetermined : 0 (0%)
+	       - unprocessed  : 0 (0%)
+	       - error        : 0 (0%)
+[<embedded>] % visualize -property <embedded>::S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_W_COND_pc:precondition1 -new_window
+INFO (IVS015): Setting Visualize task to "<embedded>".
+INFO (IVS008): Expanding analysis region to enable visualization of "<embedded>::S2QED_top.S2QED_BIND.asm_S2QED_SAME_VAL_W_COND_pc:precondition1".
+covered
+[<embedded>] % visualize -violation -property {<embedded>::S2QED_top.S2QED_BIND.[0].ast_S2QED_SAME_VAL_W_COND_reg_diff_x} -new_window
+INFO (IVS015): Setting Visualize task to "<embedded>".
+INFO (IVS008): Expanding analysis region to enable visualization of "<embedded>::S2QED_top.S2QED_BIND.[0].ast_S2QED_SAME_VAL_W_COND_reg_diff_x".
+cex
+[<embedded>] % visualize -min_length [expr [visualize -get_length -window visualize:1] + 1] -window visualize:1; visualize -freeze [visualize -get_length -window visualize:1] -window visualize:1; visualize -replot -bg -window visualize:1
+INFO (IPF031): Settings used for this proof:
+    time_limit                    = 86400s
+    per_property_time_limit       = 1s * 10 ^ scan
+    engine_mode                   = Hp Ht N B 
+    proofgrid_per_engine_max_jobs = 1
+    proofgrid_mode                = local
+    proofgrid_restarts            = 10
+INFO (IVS008): Expanding analysis region to enable visualization of "1".
+background
+Using multistage preprocessing
+Starting reduce
+Finished reduce in 0.078s
+Performing Proof Simplification...
+0.Hp: clocks: 3, declared: 1, disabling: 0, posedge: 3, negedge: 0, noedge: 0, bothedge: 0
+0.Hp: Proof Simplification Iteration 1	[0.00 s]
+0.Hp: Proof Simplification Iteration 2	[0.02 s]
+0.Hp: Proof Simplification Iteration 3	[0.05 s]
+0.Hp: Proof Simplification Iteration 4	[0.08 s]
+0.Hp: Proof Simplification Iteration 5	[0.10 s]
+0.Hp: Proof Simplification Iteration 6	[0.12 s]
+0.Hp: Proof Simplification Iteration 7	[0.14 s]
+0.Hp: Proof Simplification Iteration 8	[0.17 s]
+0.Hp: Proof Simplification Iteration 9	[0.19 s]
+0.Hp: Proof Simplification Iteration 10	[0.22 s]
+0.Hp: Proof Simplification Iteration 11	[0.24 s]
+0.Hp: Proof Simplification Iteration 12	[0.26 s]
+0.Hp: Proof Simplification Iteration 13	[0.29 s]
+0.Hp: Proof Simplification Iteration 14	[0.31 s]
+0.Hp: Proof Simplification Iteration 15	[0.33 s]
+0.Hp: Proof Simplification Iteration 16	[0.36 s]
+0.Hp: Proof Simplification Iteration 17	[0.38 s]
+0.Hp: Proof Simplification Iteration 18	[0.40 s]
+0.Hp: Proof Simplification Iteration 19	[0.42 s]
+0.Hp: Proof Simplification Iteration 20	[0.45 s]
+0.Hp: Proof Simplification Iteration 21	[0.47 s]
+0.Hp: Proof Simplification Iteration 22	[0.49 s]
+0.Hp: Proof Simplification Iteration 23	[0.52 s]
+0.Hp: Proof Simplification Iteration 24	[0.54 s]
+0.Hp: Proof Simplification Iteration 25	[0.56 s]
+0.Hp: Proof Simplification Iteration 26	[0.58 s]
+0.Hp: Proof Simplification Iteration 27	[0.61 s]
+0.Hp: Proof Simplification Iteration 28	[0.63 s]
+0.Hp: Proof Simplification Iteration 29	[0.65 s]
+0.Hp: Proof Simplification Iteration 30	[0.68 s]
+0.Hp: Proof Simplification Iteration 31	[0.70 s]
+0.Hp: Proof Simplification Iteration 32	[0.72 s]
+0.Hp: Proof Simplification Iteration 33	[0.75 s]
+0.Hp: Proof Simplification Iteration 34	[0.77 s]
+0.Hp: Proof Simplification Iteration 35	[0.79 s]
+0.Hp: Proof Simplification Iteration 36	[0.81 s]
+0.Hp: Proof Simplification Iteration 37	[0.84 s]
+0.Hp: Proof Simplification Iteration 38	[0.86 s]
+0.Hp: Proof Simplification Iteration 39	[0.89 s]
+0.Hp: Proof Simplification Iteration 40	[0.91 s]
+0.Hp: Proof Simplification Iteration 41	[0.93 s]
+0.Hp: Proof Simplification Iteration 42	[0.95 s]
+0.Hp: Proof Simplification Iteration 43	[0.97 s]
+0.Hp: Proof Simplification Iteration 44	[1.00 s]
+0.Hp: Proof Simplification Iteration 45	[1.02 s]
+0.Hp: Proof Simplification Iteration 46	[1.04 s]
+0.Hp: Proof Simplification Iteration 47	[1.07 s]
+0.Hp: Proof Simplification Iteration 48	[1.09 s]
+0.Hp: Proof Simplification Iteration 49	[1.11 s]
+0.Hp: Proof Simplification Iteration 50	[1.13 s]
+0.Hp: Proof Simplification Iteration 51	[1.16 s]
+0.Hp: Proof Simplification Iteration 52	[1.18 s]
+0.Hp: Proof Simplification Iteration 53	[1.20 s]
+0.Hp: Proof Simplification Iteration 54	[1.23 s]
+0.Hp: Proof Simplification Iteration 55	[1.25 s]
+0.Hp: Proof Simplification Iteration 56	[1.27 s]
+0.Hp: Proof Simplification Iteration 57	[1.29 s]
+0.Hp: Proof Simplification Iteration 58	[1.32 s]
+0.Hp: Proof Simplification Iteration 59	[1.34 s]
+0.Hp: Proof Simplification Iteration 60	[1.36 s]
+0.Hp: Proof Simplification Iteration 61	[1.39 s]
+0.Hp: Proof Simplification Iteration 62	[1.42 s]
+0.Hp: Proof Simplification Iteration 63	[1.44 s]
+0.Hp: Proof Simplification Iteration 64	[1.47 s]
+0.Hp: Proof Simplification Iteration 65	[1.50 s]
+0.Hp: Proof Simplification Iteration 66	[1.53 s]
+0.Hp: Proof Simplification Iteration 67	[1.56 s]
+0.Hp: Proof Simplification Iteration 68	[1.59 s]
+0.Hp: Proof Simplification Iteration 69	[1.61 s]
+0.Hp: Proof Simplification Iteration 70	[1.64 s]
+0.Hp: Proof Simplification Iteration 71	[1.67 s]
+0.Hp: Proof Simplification Iteration 72	[1.70 s]
+0.Hp: Proof Simplification Iteration 73	[1.73 s]
+0.Hp: Proof Simplification Iteration 74	[1.75 s]
+0.Hp: Proof Simplification Iteration 75	[1.78 s]
+0.Hp: Proof Simplification Iteration 76	[1.80 s]
+0.Hp: Proof Simplification Iteration 77	[1.83 s]
+0.Hp: Proof Simplification Iteration 78	[1.86 s]
+0.Hp: Proof Simplification Iteration 79	[1.89 s]
+0.Hp: Proof Simplification Iteration 80	[1.91 s]
+0.Hp: Proof Simplification Iteration 81	[1.93 s]
+0.Hp: Proof Simplification Iteration 82	[1.95 s]
+0.Hp: Proof Simplification Iteration 83	[1.97 s]
+0.Hp: Proof Simplification Iteration 84	[2.00 s]
+0.Hp: Proof Simplification Iteration 85	[2.02 s]
+0.Hp: Proof Simplification Iteration 86	[2.04 s]
+0.Hp: Proof Simplification Iteration 87	[2.07 s]
+0.Hp: Proof Simplification Iteration 88	[2.09 s]
+0.Hp: Proof Simplification Iteration 89	[2.11 s]
+0.Hp: Proof Simplification Iteration 90	[2.13 s]
+0.Hp: Proof Simplification Iteration 91	[2.16 s]
+0.Hp: Proof Simplification Iteration 92	[2.18 s]
+0.Hp: Proof Simplification Iteration 93	[2.21 s]
+0.Hp: Proof Simplification Iteration 94	[2.23 s]
+0.Hp: Proof Simplification Iteration 95	[2.25 s]
+0.Hp: Proof Simplification Iteration 96	[2.27 s]
+0.Hp: Proof Simplification Iteration 97	[2.29 s]
+0.Hp: Proof Simplification Iteration 98	[2.32 s]
+0.Hp: Proof Simplification Iteration 99	[2.34 s]
+0.Hp: Proof Simplification Iteration 100	[2.37 s]
+Proof Simplification completed in 2.60 s
+About to start distributed ProofGrid in its own thread with a limit of 20 pending notifications.
+0.Ht: Proofgrid shell started at 20992@kamek(local) jg_20571_kamek_2
+0.N: Proofgrid shell started at 21001@kamek(local) jg_20571_kamek_2
+0.N: Cluster is entering permanent allocation mode.
+0.Hp: Proofgrid shell started at 20981@kamek(local) jg_20571_kamek_2
+0.B: Proofgrid shell started at 21015@kamek(local) jg_20571_kamek_2
+0.B: Cluster is entering permanent allocation mode.
+0.Ht: clocks: 1, declared: 1, disabling: 0, posedge: 1, negedge: 0, noedge: 0, bothedge: 0
+0.Hp: clocks: 1, declared: 1, disabling: 0, posedge: 1, negedge: 0, noedge: 0, bothedge: 0
+0.B: clocks: 1, declared: 1, disabling: 0, posedge: 1, negedge: 0, noedge: 0, bothedge: 0
+0.N: clocks: 1, declared: 1, disabling: 0, posedge: 1, negedge: 0, noedge: 0, bothedge: 0
+0.B: Next scan (0) will use per property time limit: 1s * 10 ^ 0 = 1s
+0.B: Trace Attempt  1	[0.01 s]
+0.B: Trace Attempt  2	[0.01 s]
+0.N: Next scan (0) will use per property time limit: 1s * 10 ^ 0 = 1s
+0.N: Trace Attempt  1	[0.01 s]
+0.N: Trace Attempt  1	[0.01 s]
+0.N: Trace Attempt  2	[0.01 s]
+0.N: Trace Attempt  2	[0.01 s]
+0.B: A trace with 2 cycles was found. [0.04 s]
+0.B: All properties determined. [0.07 s]
+Initiating shutdown of proof (@ 0.07 s)
+0.B: Exited with Success (@ 0.07 s)
+0.N: All properties determined. [0.08 s]
+0.N: Exited with Success (@ 0.09 s)
+0.Ht: Interrupted (multi)
+0.Ht: All properties determined. [0.23 s]
+0.Ht: Exited with Success (@ 0.23 s)
+0.Hp: Interrupted (multi)
+0.Hp: All properties determined. [0.23 s]
+0.Hp: Exited with Success (@ 0.23 s)
+All pending notifications were processed.
+[<embedded>] % include /home/ecelrc/students/atung/verif_labs/S2QED_Aquarius/DV_S2QED_RISCV/rtl/mriscvcore/jg_mriscvcore.tcl
+%% #Tcl script which can be used with JasperGold
+%% #Use "source jg_mriscvcore.tcl" in the console to source this script
+%% 
+%% #Reading the files 
+%% analyze -v2k {mriscvcore_top_s2qed.v mriscvcore.v MEMORY_INTERFACE/MEMORY_INTERFACE.v DECO_INSTR/DECO_INSTR.v REG_FILE/REG_FILE.v ALU/ALU.v IRQ/IRQ.v MULT/MULT.v UTILITIES/UTILITY.v FSM/FSM.v};
+ERROR at line 5 in file /home/ecelrc/students/atung/verif_labs/S2QED_Aquarius/DV_S2QED_RISCV/rtl/mriscvcore/jg_mriscvcore.tcl, more info in Tcl-variable errorInfo
+ERROR (ESW046): The file "mriscvcore_top_s2qed.v" does not exist.
+
+INFO: Waiting for proof threads to stop...
+INFO: Proof threads stopped.
